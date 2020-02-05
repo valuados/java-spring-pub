@@ -133,23 +133,16 @@ GET /java-spring-pub/client/menu
 ```
 Response: ```200 OK```
 ```json
-* Наименование напитка
-* Порция(мл)
-* Объем бутылки
-* Стоимость за порцию
-* Стоимость за бутылку
-* Крепость
-* Описание
 [
   {
     "id" : 1, 
     "title" : "Zubrowka",
     "portion" : "50", 
     "bottleVolume" : "1000",
-    "portionPrice" : "5" 
-    "bottlePrice" : "50" 
-    "strength" : "40"
-    "description" : "Водка Зубровка",
+    "portionPrice" : "5", 
+    "bottlePrice" : "50", 
+    "strength" : "40",
+    "description" : "Водка Зубровка"
   }
 ]
 ```
