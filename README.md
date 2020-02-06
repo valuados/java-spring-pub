@@ -32,7 +32,7 @@
 Связи:
 * отсутствуют(временно)
 
-## Barman
+## Waiter
 
 Поля:
 * Почта
@@ -44,7 +44,7 @@
 Связи:
 * отсутствуют(временно)
 
-## Place(столик в бареб позиция у стойки) - это второстепенный функционал, вводится для возможности бронирования столов.
+## Place(столик в баре, позиция у стойки) - это второстепенный функционал, вводится для возможности бронирования столов.
 
 Поля:
 * Номер стола
@@ -72,7 +72,7 @@
 Связи:
 * отсутствуют(временно)
 
-## Check 
+## Order 
 
 Поля:
 * Наименование
@@ -152,4 +152,78 @@ Response: ```200 OK```
 Request:
 ```
 POST /java-spring-pub/client/order
+```
+```
+{
+   "waiterId" : "1",
+   "itemsList": [
+      {"menueItemId": "1", "volume": "1550", "volumeAmount" : "105"}
+      {"menueItemId": "2", "volume": "150", "volumeAmount" : "45"}
+                ],
+   "totalAmount" : "150"
+}
+```
+Response: ```200 OK```
+
+## JSPP-5 Как "Клиент" я хочу оплатить "Payment", если пользователь зарегистрирован.
+
+Request:
+```
+GET /java-spring-pub/client/payment?orderId=1&amount=50&tips=10
+```
+Response: ```200 OK```
+```
+{
+    "oddMoney" : "5"
+}
+```
+
+## JSPP-6 Как "Менеджер" я хочу добавить "Menu Item", если пользователь зарегистрирован.
+
+Request:
+```
+POST /java-spring-pub/manager/menu/add
+```
+```json
+{
+    "id" : 1, 
+    "title" : "Zubrowka",
+    "portion" : "50", 
+    "bottleVolume" : "1000",
+    "portionPrice" : "5", 
+    "bottlePrice" : "50", 
+    "strength" : "40",
+    "description" : "Водка Зубровка"
+  }
+```
+Response: ```200 OK```
+
+## JSPP-7 Как "Менеджер" я хочу посмотреть "Прибыль" за промежуток времени, если пользователь зарегистрирован.
+Время передается либо датой, либо Timestamp-ом
+
+Request:
+```
+GET /java-spring-pub/manager/profit?startDate=1577836800&endDate=1577923200
+```
+Response: ```200 OK```
+```
+{
+  "amount" : 351.50
+}
+```
+
+## JSPP-6 Как "Менеджер" я хочу увидеть объем проданных "Menu Item", если пользователь зарегистрирован.
+
+Request:
+```
+GET /java-spring-pub/manager/menu/spent
+```
+Response: ```200 OK```
+```json
+{
+    "id" : 1, 
+    "volume" : "3550",
+    "bottleCount" : "3.55",
+    "description" : "Водка Зубровка"
+  }
 ```
