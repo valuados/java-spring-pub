@@ -157,8 +157,8 @@ POST /java-spring-pub/client/order
 {
    "waiterId" : "1",
    "itemsList": [
-      {"menueItemId": "1", "volume": "1550", "volumeAmount" : "105"}
-      {"menueItemId": "2", "volume": "150", "volumeAmount" : "45"}
+      {"menuItemId": "1", "volume": "1550", "volumeAmount" : "105"}
+      {"menuItemId": "2", "volume": "150", "volumeAmount" : "45"}
                 ],
    "totalAmount" : "150"
 }
