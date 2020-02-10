@@ -14,7 +14,7 @@
 * ФИО
 * Номер телефона
 * Пол
-* Возраст
+* Дата Рождения
 * Скидка
 
 Связи:
@@ -26,7 +26,7 @@
 * Почта
 * ФИО
 * Пол
-* Возраст
+* Дата Рождения
 * Номер телефона
 
 Связи:
@@ -38,7 +38,7 @@
 * Почта
 * ФИО
 * Пол
-* Возраст
+* Дата Рождения
 * Номер телефона
 
 Связи:
@@ -100,7 +100,7 @@ POST /java-spring-pub/client/sign-up
   "fio" : "Пупкин Василий Иванович",
   "mobileNumber" : "+8-800-555-35-35",
   "gender" : "male", 
-  "age" : "69" 
+  "birthDate" : "19.01.1995" 
 }
 ```
 Response: ``` 201 CREATED ```
@@ -202,7 +202,7 @@ Response: ```200 OK```
 
 Request:
 ```
-DELETE /api/admin/beer/${itemId} Headers: itemId=1
+DELETE /api/manager/menu/remove/${itemId} Headers: itemId=1
 ```
 ```
 Response: 200 OK
@@ -241,7 +241,7 @@ Response: ```200 OK```
 ## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого наименования есть, изменяю ему цену
 Request:
 ```
-PUT /api/admin/beer/${beerId}  Headers: beerId=1
+PUT /api/manager/menu/change/${beerId}  Headers: beerId=1
 ```
 ```
 {
