@@ -163,7 +163,13 @@ POST /java-spring-pub/client/order
    "totalAmount" : "150"
 }
 ```
-Response: ```200 OK```
+Response: ``` 201 CREATED ```
+
+```json
+{
+  "id" : 1
+}
+```
 
 ## JSPP-5 Как "Клиент" я хочу оплатить "Payment", если пользователь зарегистрирован.
 
