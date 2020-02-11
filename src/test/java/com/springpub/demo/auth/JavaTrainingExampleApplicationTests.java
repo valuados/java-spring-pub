@@ -1,10 +1,11 @@
-package com.springpub.demo;
+package com.springpub.demo.auth;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class JavaTrainingExampleApplicationTests {
 
     @Test
     void contextLoads() {
