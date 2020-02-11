@@ -247,12 +247,7 @@ Response: ```200 OK```
 ## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого наименования есть, изменяю ему цену
 Request:
 ```
-PUT /api/manager/menu/change/${beerId}  Headers: beerId=1
-```
-```
-{
-    "price": "8.30"
-}
+PUT /java-spring-pub/manager/menu/update/${menuItemId}&price=8.30 
 ```
 Response: ```200 OK```
 ```
