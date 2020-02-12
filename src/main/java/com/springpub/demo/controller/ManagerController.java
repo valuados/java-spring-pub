@@ -26,7 +26,7 @@ public class ManagerController {
     @PostMapping(value = "/menu/add", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public String addMenuItem(@RequestBody final MenuItemAddRequest request) {
-        log.info(String.format("Created the next item: \n(%d)\n", request));
+        /*log.info(String.format("Created the next item: \n(%d)\n", request));*/
         return managerService.addMenuItem(request);
     }
 

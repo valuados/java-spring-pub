@@ -28,11 +28,11 @@ public class ManagerControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "    \"title\" : \"Zubrowka\",\n" +
-                        "    \"portion\" : \"50\", \n" +
-                        "    \"bottleVolume\" : \"1000\",\n" +
-                        "    \"portionPrice\" : \"5\", \n" +
-                        "    \"bottlePrice\" : \"50\", \n" +
-                        "    \"strength\" : \"40\",\n" +
+                        "    \"portion\" : 50, \n" +
+                        "    \"bottleVolume\" : 1000,\n" +
+                        "    \"portionPrice\" : 5, \n" +
+                        "    \"bottlePrice\" : 50, \n" +
+                        "    \"strength\" : 40,\n" +
                         "    \"description\" : \"Водка Зубровка\"\n" +
                         "}"))
                 // then
