@@ -1,7 +1,6 @@
 package com.springpub.demo.controller;
 
 
-import com.springpub.demo.dto.ClientSignInRequest;
 import com.springpub.demo.dto.ClientSignUpRequest;
 import com.springpub.demo.dto.MenuItem;
 import com.springpub.demo.service.ClientService;
@@ -29,12 +28,6 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public String singUp(@RequestBody final ClientSignUpRequest request) {
         return clientService.signUp(request);
-    }
-
-    @PostMapping(value = "/sign-in", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public String singIn(@RequestBody final ClientSignInRequest request) {
-        return clientService.signIn(request);
     }
 
     @GetMapping(value = "/menu")

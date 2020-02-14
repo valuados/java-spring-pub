@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor;
 
 import static com.springpub.demo.security.Roles.CLIENT;
 import static com.springpub.demo.security.Roles.MANAGER;
@@ -31,12 +30,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.httpBasic()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/client/register/course/*", "/manager/menu/add").hasRole(CLIENT.name())
+                .antMatchers(HttpMethod.POST, "/client/register/course/*", "/menu/add").hasRole(CLIENT.name())
                 .antMatchers(HttpMethod.GET, "/client/menu", "/manager/menu", "/client/order", "/client/payment").hasRole(CLIENT.name())
 
                 .antMatchers(HttpMethod.PUT, "manager/menu/update").hasRole(MANAGER.name())
 
-                .antMatchers(HttpMethod.POST, "/client/sign-in", "/client/sign-up").permitAll()
+                .antMatchers(HttpMethod.POST, "/sign-in", "/sign-up").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
