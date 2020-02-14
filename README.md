@@ -91,7 +91,7 @@
 Request:
 
 ```
-POST /java-spring-pub/client/sign-up
+POST /java-spring-pub/sign-up
 ```
 ```json
 {
@@ -115,7 +115,7 @@ Response: ``` 201 CREATED ```
 
 Request:
 ```
-POST /java-spring-pub/client/sign-in
+POST /java-spring-pub/sign-in
 ```
 ```json
 {
@@ -129,7 +129,7 @@ Response: ```200 OK```
 
 Request:
 ```
-GET /java-spring-pub/client/menu
+GET /java-spring-pub/menuitems
 ```
 Response: ```200 OK```
 ```json
@@ -151,23 +151,22 @@ Response: ```200 OK```
 
 Request:
 ```
-POST /java-spring-pub/client/order
+POST /java-spring-pub/orders
 ```
 ```
 {
-   "waiterId" : "1",
-   "itemsList": [
+   "items": [
       {"menuItemId": "1", "volume": "1550", "volumeAmount" : "105"}
       {"menuItemId": "2", "volume": "150", "volumeAmount" : "45"}
-                ],
-   "totalAmount" : "150"
+                ]
 }
 ```
 Response: ``` 201 CREATED ```
 
 ```json
 {
-  "id" : 1
+  "orderId" : 1,
+  "clientId" : 1
 }
 ```
 
@@ -175,12 +174,22 @@ Response: ``` 201 CREATED ```
 
 Request:
 ```
-GET /java-spring-pub/client/payment?orderId=1&amount=50&tips=10
+POST /java-spring-pub/payments
+```
+```
+{
+    "orderId" : 1,
+    "amount" : 50.0,
+    "tips" : 10.0
+}
 ```
 Response: ```200 OK```
 ```
 {
-    "oddMoney" : "5"
+    "orderId" : 1,
+    "amount" : 50.0,
+    "tips" : 10.0,
+    "oddMoney" : 5.0
 }
 ```
 
@@ -188,17 +197,16 @@ Response: ```200 OK```
 
 Request:
 ```
-POST /java-spring-pub/manager/menu/add
+POST /java-spring-pub/menuitems
 ```
 ```json
 {
-    "id" : 1, 
     "title" : "Zubrowka",
-    "portion" : "50", 
-    "bottleVolume" : "1000",
-    "portionPrice" : "5", 
-    "bottlePrice" : "50", 
-    "strength" : "40",
+    "portion" : 50, 
+    "bottleVolume" : 1000,
+    "portionPrice" : 5.0, 
+    "bottlePrice" : 50.0, 
+    "strength" : 40,
     "description" : "Водка Зубровка"
   }
 ```
@@ -208,7 +216,7 @@ Response: ```200 OK```
 
 Request:
 ```
-DELETE /api/manager/menu/remove/${itemId} Headers: itemId=1
+DELETE /api/manager/menuitems/${itemId}
 ```
 ```
 Response: 200 OK
@@ -219,7 +227,7 @@ Response: 200 OK
 
 Request:
 ```
-GET /java-spring-pub/manager/profit?startDate=1577836800&endDate=1577923200
+GET /java-spring-pub/reports/profit?startDate=1577836800&endDate=1577923200
 ```
 Response: ```200 OK```
 ```
@@ -232,7 +240,7 @@ Response: ```200 OK```
 
 Request:
 ```
-GET /java-spring-pub/manager/menu/spent
+GET /java-spring-pub/reports/spent?startDate=1577836800&endDate=1577923200
 ```
 Response: ```200 OK```
 ```json
@@ -247,11 +255,11 @@ Response: ```200 OK```
 ## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого наименования есть, изменяю ему цену
 Request:
 ```
-PUT /java-spring-pub/manager/menu/update/${menuItemId}&price=8.30 
+PATCH /java-spring-pub/menuitems/${menuItemId}
 ```
 Response: ```200 OK```
 ```
 {
-    "id" : 1
+    "portionPrice" : 6.0
 }
 ```
