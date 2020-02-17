@@ -1,10 +1,13 @@
 package com.springpub.demo.controller;
 
 import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.exception.NoSuchMenuItemException;
 import com.springpub.demo.service.MenuItemsService;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,8 @@ import java.util.List;
 
 public class MenuItemsController {
 
+    private final AuthenticationManager authenticationManager;
+
     private final MenuItemsService menuItemsService;
 
     @GetMapping(value = "/menuItems")
@@ -29,8 +34,9 @@ public class MenuItemsController {
 
     @DeleteMapping(value = "/menuItems/{menuItemId}")
     @ResponseStatus(HttpStatus.OK)
-    public void getList(@PathVariable final Long menuItemId){
-        menuItemsService.deleteMenuItem();
+    public void getList(@PathVariable final Long menuItemId)
+            throws NoSuchMenuItemException {
+        menuItemsService.deleteMenuItem(menuItemId);
     }
 
 }

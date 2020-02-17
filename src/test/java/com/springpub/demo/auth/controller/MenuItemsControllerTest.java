@@ -71,4 +71,14 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testDeleteManagerWrongMenuItem() throws Exception {
+
+        final String token = signInAsManager();
+
+        mockMvc.perform(delete("/menuItems/2").header("Authorization", token))
+                // then
+                .andExpect(status().isBadRequest());
+    }
+
 }

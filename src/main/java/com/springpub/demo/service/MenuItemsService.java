@@ -1,6 +1,9 @@
 package com.springpub.demo.service;
 
 import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.exception.NoSuchMenuItemException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,8 +11,9 @@ import java.util.List;
 /**
  * @author valuados
  */
-
+@Log
 @Service
+@RequiredArgsConstructor
 public class MenuItemsService {
 
     public List<MenuItem> getList(){
@@ -25,7 +29,11 @@ public class MenuItemsService {
                 .build());
     }
 
-    public void deleteMenuItem() {
+    public void deleteMenuItem(final Long menuItemId) throws NoSuchMenuItemException {
         //TODO prepare delete functionality
+        log.info(String.format("Deleting menuItem with id (%d)", menuItemId));
+        if(!menuItemId.equals((long)1)){
+            throw new NoSuchMenuItemException("No menuItem with id=" + menuItemId + " was found");
+        }
     }
 }
