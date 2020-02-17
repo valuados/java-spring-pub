@@ -5,10 +5,7 @@ import com.springpub.demo.service.MenuItemsService;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,12 @@ public class MenuItemsController {
     @ResponseStatus(HttpStatus.OK)
     public List<MenuItem> getList(){
         return menuItemsService.getList();
+    }
+
+    @DeleteMapping(value = "/menuItems/{menuItemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void getList(@PathVariable final Long menuItemId){
+        menuItemsService.deleteMenuItem();
     }
 
 }

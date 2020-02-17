@@ -24,4 +24,8 @@ public class MenuItemsService {
                 .description("Водка Зубровка")
                 .build());
     }
+
+    public void deleteMenuItem() {
+        //TODO prepare delete functionality
+    }
 }
