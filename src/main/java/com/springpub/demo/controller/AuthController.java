@@ -48,7 +48,10 @@ public class AuthController {
 
         return new UserSignInResponse(
                 jwtUtil.generateToken(
-                        new User(request.getEmail(), request.getPassword(), List.of(new SimpleGrantedAuthority("CLIENT")))
+                        new User(request.getEmail(),
+                                request.getPassword(),
+                                List.of(new SimpleGrantedAuthority("CLIENT"),
+                                        new SimpleGrantedAuthority("MANAGER")))
                 )
         );
     }

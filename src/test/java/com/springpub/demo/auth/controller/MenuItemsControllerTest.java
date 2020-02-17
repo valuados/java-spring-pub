@@ -38,4 +38,26 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                         "]"));
     }
 
+    @Test
+    public void testGetManagerMenuItem() throws Exception {
+
+        final String token = signInAsManager();
+
+        mockMvc.perform(get("/menuItems").header("Authorization", token))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "  {\n" +
+                        "    \"id\" : 1, \n" +
+                        "    \"title\" : \"Zubrowka\",\n" +
+                        "    \"portion\" : 50, \n" +
+                        "    \"bottleVolume\" : 1000,\n" +
+                        "    \"portionPrice\" : 5.0, \n" +
+                        "    \"bottlePrice\" : 50.0, \n" +
+                        "    \"strength\" : 40.0,\n" +
+                        "    \"description\" : \"Водка Зубровка\"\n" +
+                        "  }\n" +
+                        "]"));
+    }
+
 }
