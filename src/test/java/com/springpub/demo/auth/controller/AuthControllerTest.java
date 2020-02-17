@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasLength;
 import static org.mockito.BDDMockito.willReturn;
@@ -20,6 +21,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuthControllerTest extends AbstractControllerTest{
     @Test
     public void testClientSigUpIsCreated() throws Exception{
+
+        willReturn(Optional.empty(), Optional.of(createAuthInfo())).given(authInfoRepository)
+                .findByLogin("vasya@gmail.com");
         mockMvc.perform(post("/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
