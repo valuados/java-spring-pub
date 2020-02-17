@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
 @Data
 @RestController
 @RequestMapping
-
 public class MenuItemsController {
 
     private final AuthenticationManager authenticationManager;
