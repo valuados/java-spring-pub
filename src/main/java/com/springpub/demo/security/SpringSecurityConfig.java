@@ -27,13 +27,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.httpBasic()
+                //TODO check roles and uris
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/client/register/course/*", "/menu/add").hasRole(CLIENT.name())
-                .antMatchers(HttpMethod.GET, "/client/menu", "/manager/menu", "/client/order", "/client/payment").hasRole(CLIENT.name())
 
-                .antMatchers(HttpMethod.PUT, "manager/menu/update").hasRole(MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/menuItems").hasAnyRole(CLIENT.name())
+                .antMatchers(HttpMethod.GET, "/menuItems").hasAnyRole(CLIENT.name(), MANAGER.name())
+                .antMatchers(HttpMethod.PUT, "menuItems").hasAnyRole(MANAGER.name())
+                .antMatchers(HttpMethod.DELETE, "menuItems").hasAnyRole(MANAGER.name())
 
                 .antMatchers(HttpMethod.POST, "/sign-in", "/sign-up").permitAll()
                 .and()

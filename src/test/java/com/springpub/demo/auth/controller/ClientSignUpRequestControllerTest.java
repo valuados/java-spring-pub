@@ -24,63 +24,6 @@ public class ClientSignUpRequestControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testClientSignUpIsCreated() throws Exception {
-        // given
-        // when
-        mockMvc.perform(post("/client/sign-up")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\n" +
-                        "  \"email\" : \"vasya@gmail.com\",\n" +
-                        "  \"password\" : \"qwerty\",\n" +
-                        "  \"fio\" : \"Пупкин Василий Иванович\",\n" +
-                        "  \"phoneNumber\" : \"+8-800-555-35-35\",\n"+
-                        "  \"gender\" : \"MALE\", \n" +
-                        "  \"birthDate\" : \"19.01.1995\" \n" +
-                        "}"))
-                // then
-                .andExpect(status().isCreated())
-                .andExpect(content().json("{\"id\":1}"));
-    }
-
-    @Test
-    public void testClientSignInIsOk() throws Exception {
-        // given
-        // when
-        mockMvc.perform(post("/client/sign-in")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\n" +
-                        "  \"email\" : \"vasya@gmail.com\",\n" +
-                        "  \"password\" : \"qwerty\"\n" +
-                        "}"))
-                // then
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\n" +
-                        "  \"id\" : 1\n" +
-                        "}"));
-    }
-
-    @Test
-    public void testGetClientMenu() throws Exception {
-        // given
-        // when
-        mockMvc.perform(get("/client/menu"))
-                // then
-                .andExpect(status().isOk())
-                .andExpect(content().json("[\n" +
-                        "  {\n" +
-                        "    \"id\" : 1, \n" +
-                        "    \"title\" : \"Zubrowka\",\n" +
-                        "    \"portion\" : 50, \n" +
-                        "    \"bottleVolume\" : 1000,\n" +
-                        "    \"portionPrice\" : 5.0, \n" +
-                        "    \"bottlePrice\" : 50.0, \n" +
-                        "    \"strength\" : 40.0,\n" +
-                        "    \"description\" : \"Водка Зубровка\"\n" +
-                        "  }\n" +
-                        "]"));
-    }
-
-    @Test
     public void testClientCreateOrder() throws Exception {
         // given
         // when

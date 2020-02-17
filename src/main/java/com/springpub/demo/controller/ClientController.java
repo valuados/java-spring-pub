@@ -24,15 +24,4 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public String singUp(@RequestBody final ClientSignUpRequest request) {
-        return clientService.signUp(request);
-    }
-
-    @GetMapping(value = "/menu")
-    @ResponseStatus(HttpStatus.OK)
-    public List<MenuItem> getList(){
-        return clientService.getList();
-    }
 }

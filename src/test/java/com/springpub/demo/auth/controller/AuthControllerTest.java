@@ -37,7 +37,7 @@ public class AuthControllerTest extends AbstractControllerTest{
     @Test
     public void testClientSignUpWhenUserAlreadyExisted() throws Exception {
         // given
-        signInAsStudent();
+        signInAsClient();
         // when
         mockMvc.perform(post("/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)

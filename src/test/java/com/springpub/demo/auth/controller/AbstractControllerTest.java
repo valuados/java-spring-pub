@@ -40,7 +40,7 @@ public abstract class AbstractControllerTest {
     @SpyBean
     protected LoadUserDetailService loadUserDetailService;
 
-    protected String signInAsStudent() throws Exception{
+    protected String signInAsClient() throws Exception{
         final User user = new User("vasya@gmail.com", passwordEncoder.encode("qwerty"),
                 List.of(new SimpleGrantedAuthority("ROLE_" + CLIENT.name())));
         willReturn(user).given(loadUserDetailService).loadUserByUsername("vasya@gmail.com");
@@ -56,4 +56,5 @@ public abstract class AbstractControllerTest {
                 .andReturn().getResponse().getContentAsString();
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
+
 }
