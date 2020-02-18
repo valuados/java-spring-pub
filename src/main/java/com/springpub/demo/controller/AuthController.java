@@ -5,6 +5,7 @@ import com.springpub.demo.dto.UserSignInRequest;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.exception.UserAlreadyExistException;
 import com.springpub.demo.security.JwtUtil;
+import com.springpub.demo.service.ClientService;
 import com.springpub.demo.service.SignUpService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-    private final SignUpService signUpService;
+    private final ClientService signUpService;
 
     @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

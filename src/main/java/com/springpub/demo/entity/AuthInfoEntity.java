@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * @author Wladimir Litvinov
+ * @author valuados
  */
 @Data
 @Entity(name = "auth_info")

@@ -17,13 +17,5 @@ public class SignUpService {
 
     private final LoadUserDetailService loadUserDetailService;
 
-    public void signUp(ClientSignUpRequest request) throws UserAlreadyExistException {
-        try{
-            if (loadUserDetailService.loadUserByUsername(request.getEmail()) != null) {
-                throw new UserAlreadyExistException("User with email=" + request.getEmail() + " already exists");
-            }
-        } catch (final UsernameNotFoundException e){
-            loadUserDetailService.saveUser(request.getEmail(), request.getPassword());
-        }
-    }
+
 }

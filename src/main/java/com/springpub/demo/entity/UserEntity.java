@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 /**
- * @author Wladimir Litvinov
+ * @author valuados
  */
 @Data
 @Entity(name = "user")

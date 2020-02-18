@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.time.LocalDate;
 
+/**
+ * @author valuados
+ */
 @Data
 public class Client {
     private Long id;

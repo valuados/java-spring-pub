@@ -22,7 +22,7 @@ public class AuthControllerTest extends AbstractControllerTest{
     @Test
     public void testClientSigUpIsCreated() throws Exception{
 
-        willReturn(Optional.empty(), Optional.of(createAuthInfo())).given(authInfoRepository)
+        willReturn(Optional.empty(), Optional.of(createClientAuthInfo())).given(authInfoRepository)
                 .findByLogin("vasya@gmail.com");
         mockMvc.perform(post("/sign-up")
                 .contentType(MediaType.APPLICATION_JSON)
