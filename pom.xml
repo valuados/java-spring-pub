@@ -8,10 +8,10 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.gpsolutions.edu</groupId>
-    <artifactId>java-training-example</artifactId>
+    <groupId>com.springpub.demo</groupId>
+    <artifactId>java-spring-pub</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>java-training-example</name>
+    <name>java-spring-pub</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

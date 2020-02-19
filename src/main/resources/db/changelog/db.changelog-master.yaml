@@ -32,9 +32,6 @@ databaseChangeLog:
                   name: birth_date
                   type: date
               - column:
-                  name: self_description
-                  type: varchar(512)
-              - column:
                   name: user_role
                   type: varchar(16)
         - createTable:
@@ -65,40 +62,3 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_auth_info_user
                     references: user(id)
-        - createTable:
-            tableName: course
-            columns:
-              - column:
-                  name: id
-                  type: BIGINT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: title
-                  type: varchar(128)
-                  constraints:
-                    unique: true
-                    nullable: false
-              - column:
-                  name: description
-                  type: varchar(512)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: start_date
-                  type: date
-                  constraints:
-                    nullable: false
-              - column:
-                  name: end_date
-                  type: date
-                  constraints:
-                    nullable: false
-              - column:
-                  name: teacher_name
-                  type: varchar(128)
-                  constraints:
-                    unique: true
-                    nullable: false
