@@ -1,7 +1,7 @@
 databaseChangeLog:
   - logicalFilePath: db/changelog/db.changelog-master.yaml
   - changeSet:
-      id: 1
+      id: add user and auth_info tables
       author: valuados
       changes:
         - createTable:
@@ -62,3 +62,53 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_auth_info_user
                     references: user(id)
+  - changeSet:
+      id: init menu_item table
+      author: valuados
+      changes:
+        - createTable:
+            tableName: menu_item
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(64)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: portion
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bottle_volume
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: portion_price
+                  type: DECIMAL(6,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: bottle_price
+                  type: DECIMAL(6,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: strength
+                  type: DECIMAL(5,1)
+                  constraints:
+                    nullable: false

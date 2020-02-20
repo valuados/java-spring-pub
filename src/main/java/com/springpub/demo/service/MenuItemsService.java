@@ -2,11 +2,16 @@ package com.springpub.demo.service;
 
 import com.springpub.demo.dto.MenuItem;
 import com.springpub.demo.exception.NoSuchMenuItemException;
+import com.springpub.demo.mapper.MenuItemMapper;
+import com.springpub.demo.repository.MenuItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author valuados
@@ -16,17 +21,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MenuItemsService {
 
-    public List<MenuItem> getList(){
-        return List.of(MenuItem.builder()
+    private final MenuItemRepository menuItemRepository;
+    private final MenuItemMapper menuItemMapper;
+
+    @PostConstruct
+    public void init() {
+        menuItemRepository.save(menuItemMapper.sourceToDestination(MenuItem.builder()
                 .id(1L)
                 .title("Zubrowka")
+                .description("Водка Зубровка")
                 .portion(50)
                 .bottleVolume(1000)
-                .portionPrice(5.0)
-                .bottlePrice(50.0)
+                .portionPrice(5.00)
+                .bottlePrice(50.00)
                 .strength(40.0)
-                .description("Водка Зубровка")
-                .build());
+                .build()));
+    }
+
+    public List<MenuItem> getList(){
+        return menuItemRepository.findAll().stream().map(menuItemMapper::destinationToSource).collect(Collectors.toList());
     }
 
     public void deleteMenuItem(final Long menuItemId) throws NoSuchMenuItemException {

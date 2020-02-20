@@ -13,10 +13,13 @@ import java.time.LocalDate;
 public class MenuItem {
     private Long id;
     private String title;
+    private String description;
+
     private Integer portion;
     private Integer bottleVolume;
+
     private Double portionPrice;
     private Double bottlePrice;
+
     private Double strength;
-    private String description;
 }

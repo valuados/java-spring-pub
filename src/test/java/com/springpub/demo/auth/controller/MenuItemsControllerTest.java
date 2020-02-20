@@ -25,12 +25,12 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                         "  {\n" +
                         "    \"id\" : 1, \n" +
                         "    \"title\" : \"Zubrowka\",\n" +
+                        "    \"description\" : \"Водка Зубровка\",\n" +
                         "    \"portion\" : 50, \n" +
                         "    \"bottleVolume\" : 1000,\n" +
-                        "    \"portionPrice\" : 5.0, \n" +
-                        "    \"bottlePrice\" : 50.0, \n" +
-                        "    \"strength\" : 40.0,\n" +
-                        "    \"description\" : \"Водка Зубровка\"\n" +
+                        "    \"portionPrice\" : 5.00, \n" +
+                        "    \"bottlePrice\" : 50.00, \n" +
+                        "    \"strength\" : 40.0\n" +
                         "  }\n" +
                         "]"));
     }

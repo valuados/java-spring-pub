@@ -5,6 +5,8 @@ services:
     restart: on-failure
     depends_on:
       - db
+    ports:
+      - 8090:80
   db:
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
