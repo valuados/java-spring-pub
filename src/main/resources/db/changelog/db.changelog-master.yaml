@@ -112,3 +112,34 @@ databaseChangeLog:
                   type: DECIMAL(5,1)
                   constraints:
                     nullable: false
+  - changeSet:
+      id: insert menu_item
+      author: valuados
+      changes:
+        - insert:
+            tableName: menu_item
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: title
+                  value: "Heineken"
+              - column:
+                  name: description
+                  value: "То самое немецкое с пенкой"
+              - column:
+                  name: portion
+                  value: 500
+              - column:
+                  name: bottle_volume
+                  value: 500
+              - column:
+                  name: portion_price
+                  value: 6.50
+              - column:
+                  name: bottle_price
+                  value: 6.50
+              - column:
+                  name: strength
+                  value: 3.8

@@ -24,6 +24,16 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 .andExpect(content().json("[\n" +
                         "  {\n" +
                         "    \"id\" : 1, \n" +
+                        "    \"title\" : \"Heineken\",\n" +
+                        "    \"description\" : \"То самое немецкое с пенкой\",\n" +
+                        "    \"portion\" : 500, \n" +
+                        "    \"bottleVolume\" : 500,\n" +
+                        "    \"portionPrice\" : 6.50, \n" +
+                        "    \"bottlePrice\" : 6.50, \n" +
+                        "    \"strength\" : 3.8\n" +
+                        "  },\n" +
+                        "  {\n" +
+                        "    \"id\" : 2, \n" +
                         "    \"title\" : \"Zubrowka\",\n" +
                         "    \"description\" : \"Водка Зубровка\",\n" +
                         "    \"portion\" : 50, \n" +

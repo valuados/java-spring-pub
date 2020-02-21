@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class MenuItemsService {
     @PostConstruct
     public void init() {
         menuItemRepository.save(menuItemMapper.sourceToDestination(MenuItem.builder()
-                .id(1L)
+                .id(2L)
                 .title("Zubrowka")
                 .description("Водка Зубровка")
                 .portion(50)
@@ -39,7 +40,7 @@ public class MenuItemsService {
     }
 
     public List<MenuItem> getList(){
-        return menuItemRepository.findAll().stream().map(menuItemMapper::destinationToSource).collect(Collectors.toList());
+        return menuItemRepository.findAll().stream().map(menuItemMapper::destinationToSource).sorted(Comparator.comparing(MenuItem::getTitle)).collect(Collectors.toList());
     }
 
     public void deleteMenuItem(final Long menuItemId) throws NoSuchMenuItemException {
