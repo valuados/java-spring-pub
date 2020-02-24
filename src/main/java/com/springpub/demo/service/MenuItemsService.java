@@ -39,6 +39,7 @@ public class MenuItemsService {
                 .sorted(Comparator.comparing(MenuItem::getTitle))
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public void deleteMenuItem(final Long menuItemId) throws NoSuchMenuItemException {
         //TODO prepare delete functionality
