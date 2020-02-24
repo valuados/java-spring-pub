@@ -31,20 +31,6 @@ public class MenuItemsService {
     private final MenuItemRepository menuItemRepository;
     private final MenuItemMapper menuItemMapper;
 
-    @PostConstruct
-    public void init() {
-        menuItemRepository.save(menuItemMapper.sourceToDestination(MenuItem.builder()
-                .id(2L)
-                .title("Zubrowka")
-                .description("Водка Зубровка")
-                .portion(50)
-                .bottleVolume(1000)
-                .portionPrice(5.00)
-                .bottlePrice(50.00)
-                .strength(40.0)
-                .build()));
-    }
-
     public List<MenuItem> getList(){
         return menuItemRepository
                 .findAll()

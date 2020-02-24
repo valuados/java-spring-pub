@@ -113,7 +113,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: insert menu_item
+      id: insert menu_item_1
       author: valuados
       changes:
         - insert:
@@ -143,3 +143,34 @@ databaseChangeLog:
               - column:
                   name: strength
                   value: 3.8
+  - changeSet:
+      id: insert menu_item_2
+      author: valuados
+      changes:
+        - insert:
+            tableName: menu_item
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: title
+                  value: "Zubrowka"
+              - column:
+                  name: description
+                  value: "Водка Зубровка"
+              - column:
+                  name: portion
+                  value: 50
+              - column:
+                  name: bottle_volume
+                  value: 1000
+              - column:
+                  name: portion_price
+                  value: 5.00
+              - column:
+                  name: bottle_price
+                  value: 50.00
+              - column:
+                  name: strength
+                  value: 40.0
