@@ -153,7 +153,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void testAddExsistingMenuItem() throws Exception {
+    public void testAddExistingMenuItem() throws Exception {
         final String token = signInAsManager();
 
         mockMvc.perform(post("/menuItems").header("Authorization", token)
@@ -170,5 +170,6 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 // then
                 .andExpect(status().isBadRequest());
     }
+
 
 }

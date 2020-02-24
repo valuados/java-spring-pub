@@ -13,8 +13,8 @@ import java.util.List;
  */
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItemEntity, Long> {
-    /*
-        @Query("SELECT e.title, COUNT(e) FROM menu_item e where e.title = :title")
-    */
-    List<Object> countAllByTitle(@Param("title") String title);
+
+    @Query(value = "SELECT count(*) FROM menu_item  WHERE menu_item.title = :title",
+            nativeQuery = true)
+    Long countAllByTitle(@Param("title") String title);
 }

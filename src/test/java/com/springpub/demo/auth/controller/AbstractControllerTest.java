@@ -52,7 +52,6 @@ public abstract class AbstractControllerTest {
     /*@MockBean
     protected MenuItemRepository menuItemRepository;*/
 
-    protected LoadUserDetailService loadUserDetailService;
 
     protected String signInAsClient() throws Exception{
         final AuthInfoEntity authInfo = createClientAuthInfo();
@@ -88,10 +87,12 @@ public abstract class AbstractControllerTest {
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
 
-    /*protected void createTestMenuItem() throws Exception{
+    /*protected String createTestMenuItem() throws Exception{
         final String token = signInAsManager();
         final MenuItemEntity menuItemEntity = createMenuItemInfo();
+        willReturn(Optional.of(menuItemEntity)).given(menuItemRepository).findById(menuItemEntity.getId());
 
+        return token;
     }*/
 
     protected AuthInfoEntity createClientAuthInfo() {
@@ -126,9 +127,10 @@ public abstract class AbstractControllerTest {
         menuItem.setDescription("Test");
         menuItem.setPortion(300);
         menuItem.setBottleVolume(300);
-        menuItem.setPortionPrice(5.5);
-        menuItem.setBottlePrice(5.5);
+        menuItem.setPortionPrice(5.50);
+        menuItem.setBottlePrice(5.50);
         menuItem.setStrength(1.1);
+        menuItemRepository.save(menuItem);
         return menuItem;
     }*/
 }
