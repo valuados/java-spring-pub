@@ -49,8 +49,8 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
-    @MockBean
-    protected MenuItemRepository menuItemRepository;
+    /*@MockBean
+    protected MenuItemRepository menuItemRepository;*/
 
     protected LoadUserDetailService loadUserDetailService;
 
@@ -88,11 +88,11 @@ public abstract class AbstractControllerTest {
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
 
-    protected void createTestMenuItem() throws Exception{
+    /*protected void createTestMenuItem() throws Exception{
         final String token = signInAsManager();
         final MenuItemEntity menuItemEntity = createMenuItemInfo();
 
-    }
+    }*/
 
     protected AuthInfoEntity createClientAuthInfo() {
         final UserEntity user = new UserEntity();
@@ -119,7 +119,7 @@ public abstract class AbstractControllerTest {
     }
 
 
-    protected MenuItemEntity createMenuItemInfo(){
+    /*protected MenuItemEntity createMenuItemInfo(){
         final MenuItemEntity menuItem = new MenuItemEntity();
         menuItem.setId(100L);
         menuItem.setTitle("Test");
@@ -130,5 +130,5 @@ public abstract class AbstractControllerTest {
         menuItem.setBottlePrice(5.5);
         menuItem.setStrength(1.1);
         return menuItem;
-    }
+    }*/
 }

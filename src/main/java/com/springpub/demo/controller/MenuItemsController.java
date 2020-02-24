@@ -20,28 +20,27 @@ import java.util.Map;
 @Log
 @Data
 @RestController
-/*@RequestMapping(value = "/menuItems")*/
+@RequestMapping(value = "/menuItems")
 public class MenuItemsController {
 
     private final AuthenticationManager authenticationManager;
 
     private final MenuItemsService menuItemsService;
 
-    @GetMapping(value = "/menuItems")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.OK)
     public List<MenuItem> getList(){
         return menuItemsService.getList();
     }
 
-    @DeleteMapping(value = "/menuItems/{menuItemId}")
+    @DeleteMapping(value = "/{menuItemId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteMenuItem(@PathVariable final Long menuItemId)
             throws NoSuchMenuItemException {
         menuItemsService.deleteMenuItem(menuItemId);
     }
 
-    @PostMapping(value = "/menuItems",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
     public Map<String, Long> addMenuItem(@RequestBody final MenuItem request)

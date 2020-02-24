@@ -152,4 +152,23 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 .andExpect(status().isForbidden());
     }
 
+    @Test
+    public void testAddExsistingMenuItem() throws Exception {
+        final String token = signInAsManager();
+
+        mockMvc.perform(post("/menuItems").header("Authorization", token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "    \"title\" : \"Heineken\",\n" +
+                        "    \"description\" : \"То самое немецкое с пенкой\",\n" +
+                        "    \"portion\" : 500, \n" +
+                        "    \"bottleVolume\" : 500,\n" +
+                        "    \"portionPrice\" : 6.50, \n" +
+                        "    \"bottlePrice\" : 6.50, \n" +
+                        "    \"strength\" : 3.8\n" +
+                        "}"))
+                // then
+                .andExpect(status().isBadRequest());
+    }
+
 }

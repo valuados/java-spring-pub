@@ -63,14 +63,14 @@ public class MenuItemsService {
         menuItemRepository.deleteById(menuItemId);
     }
 
+    @Transactional
     public Map<String, Long> addMenuItem(final MenuItem request) throws ItemAlreadyExsists{
-        if(menuItemRepository.exsistsByTitle(request.getTitle())){
+        if(menuItemRepository.countAllByTitle(request.getTitle()).size() > 0){
             throw new ItemAlreadyExsists("Item with the title=" + request.getTitle() + " already exsists");
         }
         final MenuItemEntity menuItemEntity = menuItemMapper.sourceToDestination(request);
-        final MenuItemEntity savedMenuItemEntity = menuItemRepository.save(menuItemEntity);
+        Long id = menuItemRepository.save(menuItemEntity).getId();
 
-        Long id = savedMenuItemEntity.getId();
         Map<String, Long> menuItemMap = new HashMap<String, Long>();
         menuItemMap.put("id", id);
         return menuItemMap;
