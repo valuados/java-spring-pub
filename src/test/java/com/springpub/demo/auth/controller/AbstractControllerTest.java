@@ -1,10 +1,13 @@
 package com.springpub.demo.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springpub.demo.dto.MenuItem;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.entity.AuthInfoEntity;
+import com.springpub.demo.entity.MenuItemEntity;
 import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.repository.AuthInfoRepository;
+import com.springpub.demo.repository.MenuItemRepository;
 import com.springpub.demo.repository.UserRepository;
 import com.springpub.demo.security.LoadUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,8 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
+    @MockBean
+    protected MenuItemRepository menuItemRepository;
 
     protected LoadUserDetailService loadUserDetailService;
 
@@ -83,6 +88,12 @@ public abstract class AbstractControllerTest {
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
 
+    protected void createTestMenuItem() throws Exception{
+        final String token = signInAsManager();
+        final MenuItemEntity menuItemEntity = createMenuItemInfo();
+
+    }
+
     protected AuthInfoEntity createClientAuthInfo() {
         final UserEntity user = new UserEntity();
         user.setUserRole(CLIENT);
@@ -98,12 +109,26 @@ public abstract class AbstractControllerTest {
     protected AuthInfoEntity createManagerAuthInfo() {
         final UserEntity user = new UserEntity();
         user.setUserRole(MANAGER);
-        user.setEmail("vasya@gmail.com");
+        user.setEmail("vlad@gmail.com");
 
         final AuthInfoEntity authInfo = new AuthInfoEntity();
         authInfo.setLogin(user.getEmail());
         authInfo.setPassword(passwordEncoder.encode("qwerty"));
         authInfo.setUser(user);
         return authInfo;
+    }
+
+
+    protected MenuItemEntity createMenuItemInfo(){
+        final MenuItemEntity menuItem = new MenuItemEntity();
+        menuItem.setId(100L);
+        menuItem.setTitle("Test");
+        menuItem.setDescription("Test");
+        menuItem.setPortion(300);
+        menuItem.setBottleVolume(300);
+        menuItem.setPortionPrice(5.5);
+        menuItem.setBottlePrice(5.5);
+        menuItem.setStrength(1.1);
+        return menuItem;
     }
 }

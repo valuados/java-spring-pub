@@ -1,6 +1,7 @@
 package com.springpub.demo.controller;
 
 import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.exception.ItemAlreadyExsists;
 import com.springpub.demo.exception.NoSuchMenuItemException;
 import com.springpub.demo.service.MenuItemsService;
 import lombok.Data;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author valuados
@@ -18,24 +20,33 @@ import java.util.List;
 @Log
 @Data
 @RestController
-@RequestMapping(value = "/menuItems", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+/*@RequestMapping(value = "/menuItems")*/
 public class MenuItemsController {
 
     private final AuthenticationManager authenticationManager;
 
     private final MenuItemsService menuItemsService;
 
-    @GetMapping
+    @GetMapping(value = "/menuItems")
     @ResponseStatus(HttpStatus.OK)
     public List<MenuItem> getList(){
         return menuItemsService.getList();
     }
 
-    @DeleteMapping(value = "/{menuItemId}")
+    @DeleteMapping(value = "/menuItems/{menuItemId}")
     @ResponseStatus(HttpStatus.OK)
-    public void getList(@PathVariable final Long menuItemId)
+    public void deleteMenuItem(@PathVariable final Long menuItemId)
             throws NoSuchMenuItemException {
         menuItemsService.deleteMenuItem(menuItemId);
+    }
+
+    @PostMapping(value = "/menuItems",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Map<String, Long> addMenuItem(@RequestBody final MenuItem request)
+            throws ItemAlreadyExsists {
+        return menuItemsService.addMenuItem(request);
     }
 
 }
