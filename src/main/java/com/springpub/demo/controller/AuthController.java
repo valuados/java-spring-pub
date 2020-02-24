@@ -7,6 +7,7 @@ import com.springpub.demo.exception.UserAlreadyExistException;
 import com.springpub.demo.security.JwtUtil;
 import com.springpub.demo.service.ClientService;
 import com.springpub.demo.service.SignUpService;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * @author valuados
  */
-
+@Api()
 @RestController
 @AllArgsConstructor
 public class AuthController {

@@ -4,6 +4,7 @@ import com.springpub.demo.dto.MenuItem;
 import com.springpub.demo.exception.ItemAlreadyExsists;
 import com.springpub.demo.exception.NoSuchMenuItemException;
 import com.springpub.demo.service.MenuItemsService;
+import io.swagger.annotations.Api;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,8 @@ import java.util.Map;
 /**
  * @author valuados
  */
+
+@Api()
 @Log
 @Data
 @RestController
