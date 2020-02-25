@@ -92,6 +92,7 @@ public class AuthControllerTest extends AbstractControllerTest{
         signInAsClient();
         // when
         mockMvc.perform(post("/sign-in")
+
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "  \"email\" : \"vasya@email.com\",\n" +
