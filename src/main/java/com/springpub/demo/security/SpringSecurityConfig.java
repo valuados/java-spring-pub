@@ -33,8 +33,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.POST, "/menuItems").hasRole(MANAGER.name())
                 .antMatchers(HttpMethod.GET, "/menuItems").hasAnyRole(CLIENT.name(), MANAGER.name())
-                .antMatchers(HttpMethod.PUT, "menuItems").hasRole(MANAGER.name())
-                .antMatchers(HttpMethod.DELETE, "menuItems").hasAnyRole(MANAGER.name())
+                .antMatchers(HttpMethod.PUT, "/menuItems").hasRole(MANAGER.name())
+                .antMatchers(HttpMethod.DELETE, "/menuItems/*").hasAnyRole(MANAGER.name())
 
                 .antMatchers(HttpMethod.POST, "/sign-in", "/sign-up").permitAll()
                 .and()
