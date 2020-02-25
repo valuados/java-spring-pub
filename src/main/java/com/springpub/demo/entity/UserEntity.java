@@ -12,16 +12,20 @@ import java.time.LocalDate;
  */
 @Data
 @Entity(name = "user")
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "fio", nullable = false)
     private String fio;
+
+    @Column(name = "gender")
     private Gender gender;
+
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    @Column(name = "user_role")
     private UserRole userRole;
 }

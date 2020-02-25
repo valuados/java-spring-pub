@@ -9,20 +9,26 @@ import javax.persistence.*;
  */
 @Data
 @Entity(name = "menu_item")
-public class MenuItemEntity {
+public class MenuItemEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
+    @Column(name = "title", unique = true)
     private String title;
+
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "portion", nullable = false)
     private Integer portion;
+
+    @Column(name = "bottle_volume")
     private Integer bottleVolume;
 
+    @Column(name = "portion_price", nullable = false)
     private Double portionPrice;
+
+    @Column(name = "bottle_price")
     private Double bottlePrice;
 
+    @Column(name = "strength")
     private Double strength;
 }

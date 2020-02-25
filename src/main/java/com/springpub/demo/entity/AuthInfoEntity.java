@@ -10,14 +10,15 @@ import javax.persistence.*;
  */
 @Data
 @Entity(name = "auth_info")
-public class AuthInfoEntity {
+public class AuthInfoEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(unique = true)
+
+    @Column(name = "login", unique = true)
     private String login;
+
+    @Column(name = "password")
     private String password;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
