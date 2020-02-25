@@ -2,10 +2,7 @@ package com.springpub.demo.auth.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasLength;
