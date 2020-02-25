@@ -174,3 +174,47 @@ databaseChangeLog:
               - column:
                   name: strength
                   value: 40.0
+  - changeSet:
+      id: add order table and ordered_item table
+      author: valuados
+      changes:
+        - createTable:
+            tableName: order
+            columns:
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: total_price
+                    type: DECIMAL(10,2)
+                - column:
+                    name: status
+                    type: varchar(512)
+                      constraints:
+                        nullable: false
+              - createTable:
+                  tableName: ordered_item
+                  columns:
+                    columns:
+                      - column:
+                          name: id
+                          type: BIGINT
+                          autoIncrement: true
+                          constraints:
+                            primaryKey: true
+                            nullable: false
+                      - column:
+                          name: quantity
+                          type: INT
+                          constraints:
+                            nullable: false
+                      - column:
+                          name: total_price
+                          type: DECIMAL(8,2)
+                            constraints:
+                              nullable: false
