@@ -1,30 +1,29 @@
 package com.springpub.demo.entity;
 
-import com.springpub.demo.dto.MenuItem;
-import lombok.Data;
-import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
-import javax.persistence.Entity;
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * @author valuados
  */
 
+@Data
 @Entity
 @Table(name = "ordered_item")
-@Data
 public class OrderedItemEntity extends BaseEntity{
 
     /*@ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private OrderEntity orderEntity;*/
 
-    /*@OneToOne(optional = false)
-    @JoinColumn(name = "menu_item_id", referencedColumnName = "id", nullable = false)
-    private MenuItemEntity menuItemEntity;*/
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "menu_item")
+    @JoinColumn(name = "menu_item_id")*/
+    /*private MenuItemEntity menuItemEntity;*/
+
+    @Column(name = "menu_item_id")
+    private Long menuItemId;
 
     @Column(name = "order_id")
     private Long orderId;

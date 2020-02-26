@@ -1,14 +1,14 @@
 package com.springpub.demo.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 /**
  * @author valuados
  */
 @Data
-@Entity(name = "menu_item")
+@Entity
+@Table(name = "menu_item")
 public class MenuItemEntity extends BaseEntity {
 
     @Column(name = "title", unique = true)
@@ -31,4 +31,7 @@ public class MenuItemEntity extends BaseEntity {
 
     @Column(name = "strength")
     private Double strength;
+
+    /*@OneToOne(mappedBy = "menu_item")
+    private OrderedItemEntity orderedItemEntity;*/
 }

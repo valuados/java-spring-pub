@@ -2,16 +2,14 @@ package com.springpub.demo.entity;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author valuados
  */
 
+@Data
 @Entity
 @Table(name="order")
-@Data
 public class OrderEntity extends BaseEntity {
 
     /*@OneToOne(optional = false)

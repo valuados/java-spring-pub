@@ -11,7 +11,8 @@ import java.time.LocalDate;
  * @author valuados
  */
 @Data
-@Entity(name = "user")
+@Entity
+@Table(name = "user")
 public class UserEntity extends BaseEntity {
 
     @Column(name = "email", unique = true)

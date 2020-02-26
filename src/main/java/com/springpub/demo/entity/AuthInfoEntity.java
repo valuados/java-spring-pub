@@ -9,7 +9,8 @@ import javax.persistence.*;
  * @author valuados
  */
 @Data
-@Entity(name = "auth_info")
+@Entity
+@Table(name = "auth_info")
 public class AuthInfoEntity extends BaseEntity {
 
 

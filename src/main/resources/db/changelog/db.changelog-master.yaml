@@ -208,11 +208,9 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-              #- column:
-               #   name: menu_item_id
-              #    type: BIGINT
-               #   constraits:
-              #      nullable: false
+              - column:
+                  name: menu_item_id
+                  type: BIGINT
               - column:
                   name: order_id
                   type: BIGINT
