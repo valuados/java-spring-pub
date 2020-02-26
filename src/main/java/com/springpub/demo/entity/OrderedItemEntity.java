@@ -18,12 +18,9 @@ public class OrderedItemEntity extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private OrderEntity orderEntity;*/
 
-    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "menu_item")
-    @JoinColumn(name = "menu_item_id")*/
-    /*private MenuItemEntity menuItemEntity;*/
-
-    @Column(name = "menu_item_id")
-    private Long menuItemId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "menu_item_id", referencedColumnName = "id")
+    private MenuItemEntity menuItemEntity;
 
     @Column(name = "order_id")
     private Long orderId;

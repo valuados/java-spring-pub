@@ -32,6 +32,6 @@ public class MenuItemEntity extends BaseEntity {
     @Column(name = "strength")
     private Double strength;
 
-    /*@OneToOne(mappedBy = "menu_item")
-    private OrderedItemEntity orderedItemEntity;*/
+    @OneToOne(mappedBy = "menuItemEntity",  fetch = FetchType.EAGER)
+    private OrderedItemEntity orderedItemEntity;
 }
