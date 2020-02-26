@@ -2,6 +2,8 @@ package com.springpub.demo.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author valuados
@@ -22,10 +24,9 @@ public class OrderEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    /*@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             mappedBy = "orderEntity",
             fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private List<OrderedItemEntity> orderedItemEntities = new ArrayList<>();*/
+    private List<OrderedItemEntity> orderedItemEntities = new ArrayList<>();
 }

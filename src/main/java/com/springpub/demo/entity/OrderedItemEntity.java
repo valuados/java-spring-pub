@@ -14,16 +14,16 @@ import javax.persistence.*;
 @Table(name = "ordered_item")
 public class OrderedItemEntity extends BaseEntity{
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private OrderEntity orderEntity;*/
+    private OrderEntity orderEntity;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_item_id", referencedColumnName = "id")
     private MenuItemEntity menuItemEntity;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    /*@Column(name = "order_id")
+    private Long orderId;*/
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
