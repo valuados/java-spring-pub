@@ -252,14 +252,37 @@ Response: ```200 OK```
   }
 ```
 
-## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого наименования есть, изменяю ему цену
+## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого id есть, изменяю ему цену
 Request:
 ```
 PATCH /java-spring-pub/menuitems/${menuItemId}
 ```
-Response: ```200 OK```
 ```
 {
     "portionPrice" : 6.0
 }
 ```
+Response: ```200 OK```
+
+## JSPP-11 Как "Менеджер", я хочу изменить порцию(portion) "Menu Item", и если такого id есть, изменяю порцию.
+Request:
+```
+PATCH /java-spring-pub/menuitems/${menuItemId}
+```
+```
+{
+    "portion" : 500
+}
+```
+Response: ```200 OK```
+## JSPP-12 Как "Менеджер", я хочу изменить название(title) "Menu Item", и если такого id есть, изменяю название.
+Request:
+```
+PATCH /java-spring-pub/menuitems/${menuItemId}
+```
+```
+{
+    "title" : "Новый бровар"
+}
+```
+Response: ```200 OK```
