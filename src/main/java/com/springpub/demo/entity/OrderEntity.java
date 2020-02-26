@@ -12,9 +12,9 @@ import javax.persistence.*;
 @Table(name="order")
 public class OrderEntity extends BaseEntity {
 
-    /*@OneToOne(optional = false)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;*/
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
 
     @Column(name = "total_price")
     private Double totalPrice;

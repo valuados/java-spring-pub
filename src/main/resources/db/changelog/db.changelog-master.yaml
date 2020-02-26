@@ -198,6 +198,13 @@ databaseChangeLog:
                   type: varchar(512)
                   constraints:
                     nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_user
+                    references: user(id)
         - createTable:
             tableName: ordered_item
             columns:
@@ -211,6 +218,10 @@ databaseChangeLog:
               - column:
                   name: menu_item_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_omi_mi
+                    references: menu_item(id)
               - column:
                   name: order_id
                   type: BIGINT
