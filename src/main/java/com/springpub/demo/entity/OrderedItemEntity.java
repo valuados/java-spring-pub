@@ -4,6 +4,7 @@ package com.springpub.demo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author valuados
@@ -29,6 +30,6 @@ public class OrderedItemEntity extends BaseEntity{
     private Integer volume;
 
     @Column(name = "total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
 }

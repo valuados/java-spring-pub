@@ -36,6 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/menuItems").hasRole(MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/menuItems/*").hasAnyRole(MANAGER.name())
 
+                .antMatchers(HttpMethod.POST, "/orders").hasRole(CLIENT.name())
+
                 .antMatchers(HttpMethod.POST, "/sign-in", "/sign-up").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
