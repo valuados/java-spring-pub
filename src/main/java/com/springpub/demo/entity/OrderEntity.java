@@ -25,8 +25,7 @@ public class OrderEntity extends BaseEntity {
     private String status;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "orderEntity",
-            fetch = FetchType.EAGER
+            mappedBy = "orderEntity"
     )
     private List<OrderedItemEntity> orderedItemEntities = new ArrayList<>();
 }

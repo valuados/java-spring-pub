@@ -18,15 +18,15 @@ public class OrderedItemEntity extends BaseEntity{
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private OrderEntity orderEntity;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "menu_item_id", referencedColumnName = "id")
     private MenuItemEntity menuItemEntity;
 
     /*@Column(name = "order_id")
     private Long orderId;*/
 
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
+    @Column(name = "volume", nullable = false)
+    private Integer volume;
 
     @Column(name = "total_price")
     private Double totalPrice;

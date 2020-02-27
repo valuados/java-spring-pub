@@ -228,7 +228,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: quantity
+                  name: volume
                   type: INT
                   constraints:
                     nullable: false
