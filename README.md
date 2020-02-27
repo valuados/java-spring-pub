@@ -155,7 +155,7 @@ POST /java-spring-pub/orders
 ```
 ```
 {
-   "items": [
+   "orderedItem": [
       {"menuItemId": "1", "volume": "1550", "totalPrice" : "105"}
       {"menuItemId": "2", "volume": "150", "totalPrice" : "45"}
                 ]
@@ -165,8 +165,10 @@ Response: ``` 201 CREATED ```
 
 ```json
 {
-  "orderId" : 1,
-  "clientId" : 1
+  "id" : 1,
+  "userId" : 1,
+  "totalPrice" : 1,
+  "status" : "NEW"
 }
 ```
 
