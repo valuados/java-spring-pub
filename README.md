@@ -156,8 +156,8 @@ POST /java-spring-pub/orders
 ```
 {
    "items": [
-      {"menuItemId": "1", "volume": "1550", "volumeAmount" : "105"}
-      {"menuItemId": "2", "volume": "150", "volumeAmount" : "45"}
+      {"menuItemId": "1", "volume": "1550", "totalPrice" : "105"}
+      {"menuItemId": "2", "volume": "150", "totalPrice" : "45"}
                 ]
 }
 ```
