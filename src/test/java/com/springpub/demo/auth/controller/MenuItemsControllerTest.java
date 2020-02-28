@@ -1,8 +1,20 @@
 package com.springpub.demo.auth.controller;
 
+import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.entity.MenuItemEntity;
+import com.springpub.demo.mapper.MenuItemMapper;
+import com.springpub.demo.repository.MenuItemRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -12,6 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 public class MenuItemsControllerTest extends AbstractControllerTest{
+
+//    @MockBean
+//    private MenuItemRepository menuItemRepository;
+    @SpyBean
+    private MenuItemMapper menuItemMapper;
 
     @Test
     public void testGetClientMenuItem() throws Exception {
@@ -171,5 +188,55 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void testChangePortion() throws Exception {
+        // given
+        final String token = signInAsManager();
+        Long id = 1L;
+        MenuItem menuItem = objectMapper
+            .readValue("{\n" +
+                       "    \"id\": 1," +
+                       "    \"title\" : \"Heineken\",\n" +
+                       "    \"description\" : \"То самое немецкое с пенкой\",\n" +
+                       "    \"portion\" : 400, \n" +
+                       "    \"bottleVolume\" : 400,\n" +
+                       "    \"portionPrice\" : 6.50, \n" +
+                       "    \"bottlePrice\" : 6.50, \n" +
+                       "    \"strength\" : 3.8\n" +
+                       "}", MenuItem.class);
 
+        MenuItemEntity menuItemEntity = menuItemMapper.sourceToDestination(menuItem);
+
+        willReturn(Optional.of(menuItemEntity)).given(menuItemRepository).findById(id);
+        willReturn(menuItemMapper.sourceToDestination(menuItem)).given(menuItemRepository)
+            .save(any(MenuItemEntity.class));
+        // when
+        mockMvc.perform(patch("/menuItems/" + id).header("Authorization", token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{\n" +
+                                     "    \"portion\" : 500 \n" +
+                                     "}"))
+            // then
+            .andExpect(status().isOk());
+        verify(menuItemRepository, times(1)).findById(id);
+        verify(menuItemRepository, times(1)).save(any(MenuItemEntity.class));
+    }
+
+    @Test
+    public void testChangePortion_NoSuchMenuItem() throws Exception {
+        // given
+        final String token = signInAsManager();
+        final Long id = 1L;
+
+        willReturn(Optional.empty()).given(menuItemRepository).findById(id);
+        // when
+        mockMvc.perform(patch("/menuItems/" + id).header("Authorization", token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{\n" +
+                                     "    \"portion\" : 500 \n" +
+                                     "}"))
+            // then
+            .andExpect(status().isBadRequest());
+        verify(menuItemRepository, times(1)).findById(id);
+    }
 }

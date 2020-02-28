@@ -51,4 +51,9 @@ public class MenuItemsController {
         return menuItemsService.addMenuItem(request);
     }
 
+    @PatchMapping(value = "/{menuItemId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void changePortion(@PathVariable final Long menuItemId, @RequestBody final MenuItem request) {
+        menuItemsService.changePortion(menuItemId, request);
+    }
 }
