@@ -49,8 +49,8 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
-    /*@MockBean
-    protected MenuItemRepository menuItemRepository;*/
+    @MockBean
+    protected MenuItemRepository menuItemRepository;
 
 
     protected String signInAsClient() throws Exception{

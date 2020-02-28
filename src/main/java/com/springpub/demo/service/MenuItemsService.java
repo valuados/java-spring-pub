@@ -18,6 +18,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -62,5 +64,13 @@ public class MenuItemsService {
         menuItemMap.put("id", id);
         return menuItemMap;
 
+    }
+
+    public void changePortion(final Long id, final MenuItem menuItem) {
+         final MenuItemEntity menuItemEntity = menuItemRepository.findById(id)
+            .orElseThrow(() -> new NoSuchElementException("No menuItem with id=" + id + " was found"));
+
+        menuItemEntity.setPortion(menuItem.getPortion());
+        menuItemRepository.save(menuItemEntity);
     }
 }
