@@ -3,6 +3,8 @@ package com.springpub.demo.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author valuados
  */
@@ -10,6 +12,6 @@ import lombok.Data;
 @Builder
 public class MenuItemUpdatePriceRequest {
     private Long id;
-    private Double portionPrice;
-    private Double bottlePrice;
+    private BigDecimal portionPrice;
+    private BigDecimal bottlePrice;
 }

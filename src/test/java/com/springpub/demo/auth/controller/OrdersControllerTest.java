@@ -28,9 +28,9 @@ public class OrdersControllerTest extends AbstractControllerTest{
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "   \"orderedItems\": [\n" +
-                        "      {\"menuItemId\": \"1\", \"volume\": 1550, \"totalPrice\" : 105.00},\n" +
-                        "      {\"menuItemId\": \"2\", \"volume\": 150, \"totalPrice\" : 45.00}\n" +
+                        "   \"orderedItemRequest\": [\n" +
+                        "      {\"menuItemId\": \"1\", \"volume\": 1500},\n" +
+                        "      {\"menuItemId\": \"2\", \"volume\": 150}\n" +
                         "                ]\n" +
                         "}"))
                 //then
@@ -38,11 +38,11 @@ public class OrdersControllerTest extends AbstractControllerTest{
                 .andExpect(content().json("{\n" +
                         "  \"id\" : 1,\n" +
                         "  \"userId\" : 1,\n" +
-                        "  \"totalPrice\" : 150.00,\n" +
+                        "  \"totalPrice\" : 64.50,\n" +
                         "  \"status\" : \"NEW\",\n" +
                         //TODO remove details and check for valid
                         "   \"orderedItems\": [\n" +
-                        "      {\"menuItemId\": 1, \"volume\": 1550, \"totalPrice\" : 105.00},\n" +
+                        "      {\"menuItemId\": 1, \"volume\": 1550, \"totalPrice\" : 19.50},\n" +
                         "      {\"menuItemId\": 2, \"volume\": 150, \"totalPrice\" : 45.00}\n" +
                         "                ]\n" +
                         "}"));

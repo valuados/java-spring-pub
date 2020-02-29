@@ -1,7 +1,7 @@
 package com.springpub.demo.exception;
 
 /**
- * @author Wladimir Litvinov
+ * @author valuados
  */
 public class UserAlreadyExistException extends Exception {
 

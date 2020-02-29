@@ -2,6 +2,7 @@ package com.springpub.demo.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="order")
+@Table(name="orders")
 public class OrderEntity extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -19,7 +20,7 @@ public class OrderEntity extends BaseEntity {
     private UserEntity userEntity;
 
     @Column(name = "total_price")
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     @Column(name = "status", nullable = false)
     private String status;

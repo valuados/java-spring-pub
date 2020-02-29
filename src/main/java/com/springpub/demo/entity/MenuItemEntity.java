@@ -2,6 +2,7 @@ package com.springpub.demo.entity;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @author valuados
@@ -24,13 +25,13 @@ public class MenuItemEntity extends BaseEntity {
     private Integer bottleVolume;
 
     @Column(name = "portion_price", nullable = false)
-    private Double portionPrice;
+    private BigDecimal portionPrice;
 
     @Column(name = "bottle_price")
-    private Double bottlePrice;
+    private BigDecimal bottlePrice;
 
     @Column(name = "strength")
-    private Double strength;
+    private BigDecimal strength;
 
     @OneToOne(mappedBy = "menuItemEntity",  fetch = FetchType.EAGER)
     private OrderedItemEntity orderedItemEntity;

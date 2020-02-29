@@ -1,8 +1,8 @@
 package com.springpub.demo.controller;
 
 import com.springpub.demo.dto.MenuItem;
-import com.springpub.demo.exception.ItemAlreadyExsists;
-import com.springpub.demo.exception.NoSuchMenuItemException;
+import com.springpub.demo.exception.ItemAlreadyExistsException;
+import com.springpub.demo.exception.MenuItemNotFoundException;
 import com.springpub.demo.service.MenuItemsService;
 import io.swagger.annotations.Api;
 import lombok.Data;
@@ -39,7 +39,7 @@ public class MenuItemsController {
     @DeleteMapping(value = "/{menuItemId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteMenuItem(@PathVariable final Long menuItemId)
-            throws NoSuchMenuItemException {
+            throws MenuItemNotFoundException {
         menuItemsService.deleteMenuItem(menuItemId);
     }
 
@@ -47,7 +47,7 @@ public class MenuItemsController {
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
     public Map<String, Long> addMenuItem(@RequestBody final MenuItem request)
-            throws ItemAlreadyExsists {
+            throws ItemAlreadyExistsException {
         return menuItemsService.addMenuItem(request);
     }
 

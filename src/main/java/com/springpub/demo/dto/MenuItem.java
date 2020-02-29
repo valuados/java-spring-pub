@@ -3,7 +3,7 @@ package com.springpub.demo.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 /**
  * @author valuados
@@ -18,8 +18,8 @@ public class MenuItem {
     private Integer portion;
     private Integer bottleVolume;
 
-    private Double portionPrice;
-    private Double bottlePrice;
+    private BigDecimal portionPrice;
+    private BigDecimal bottlePrice;
 
-    private Double strength;
+    private BigDecimal strength;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
@@ -31,9 +32,9 @@ public class OrdersController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order add(@RequestBody Order order){
+    public Order add(@RequestBody Order order, final Authentication authentication){
 
-        return ordersService.create(order);
+        return ordersService.create(order, authentication.getName());
 
     }
 }

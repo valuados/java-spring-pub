@@ -14,5 +14,5 @@ public class Order {
     private Long userId;
     private BigDecimal totalPrice;
     private OrderStatus status;
-    private List<OrderedItem> orderedItems;
+    private List<OrderedItemRequest> orderedItemRequests;
 }

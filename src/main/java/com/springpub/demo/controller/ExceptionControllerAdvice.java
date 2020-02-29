@@ -1,8 +1,8 @@
 package com.springpub.demo.controller;
 
 
-import com.springpub.demo.exception.ItemAlreadyExsists;
-import com.springpub.demo.exception.NoSuchMenuItemException;
+import com.springpub.demo.exception.ItemAlreadyExistsException;
+import com.springpub.demo.exception.MenuItemNotFoundException;
 import com.springpub.demo.exception.UserAlreadyExistException;
 import lombok.Data;
 import lombok.extern.java.Log;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.logging.Level;
 
@@ -27,8 +26,9 @@ public class ExceptionControllerAdvice {
             {
                     UserAlreadyExistException.class,
                     UsernameNotFoundException.class,
-                    NoSuchMenuItemException.class,
-                    ItemAlreadyExsists.class
+
+                    ItemAlreadyExistsException.class,
+                    MenuItemNotFoundException.class
             })
     private ResponseEntity<ErrorMessage> handleBadRequest(final Exception e){
         log.log(Level.SEVERE, e.getMessage(), e);

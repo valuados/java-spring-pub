@@ -179,7 +179,7 @@ databaseChangeLog:
       author: valuados
       changes:
         - createTable:
-            tableName: order
+            tableName: orders
             columns:
               - column:
                   name: id
