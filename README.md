@@ -160,7 +160,7 @@ POST /java-spring-pub/orders
          "menuItem":{
             "id":1
          },
-         "volume":1550
+         "volume":1500
       },
       {
          "menuItem":{
@@ -177,8 +177,24 @@ Response: ``` 201 CREATED ```
 {
   "id" : 1,
   "userId" : 1,
-  "totalPrice" : 1,
-  "status" : "NEW"
+  "totalPrice" : 34.50,
+  "status" : "NEW",
+  "orderedItems":[
+      {
+         "menuItem":{
+            "id":1
+         },
+         "volume":1500,
+         "totalPrice": 19.50
+      },
+      {
+         "menuItem":{
+            "id":2
+         },
+         "volume":150,
+         "totalPrice": 15.00
+      }
+   ]
 }
 ```
 
