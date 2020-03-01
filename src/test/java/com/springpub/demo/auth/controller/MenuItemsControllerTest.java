@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author valuados
  */
 
-public class MenuItemsControllerTest extends AbstractControllerTest{
+public class MenuItemsControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetClientMenuItem() throws Exception {
@@ -99,6 +99,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
 
     /**
      * TODO access denied redirect and 403 Forbidden
+     *
      * @throws Exception
      */
     @Test
@@ -170,6 +171,4 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
                 // then
                 .andExpect(status().isBadRequest());
     }
-
-
 }
