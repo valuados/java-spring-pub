@@ -31,7 +31,7 @@ public class MenuItemsService {
     private final MenuItemRepository menuItemRepository;
     private final MenuItemMapper menuItemMapper;
 
-    public List<MenuItem> getList(){
+    public List<MenuItem> getList() {
         return menuItemRepository
                 .findAll()
                 .stream()
@@ -44,15 +44,15 @@ public class MenuItemsService {
     public void deleteMenuItem(final Long menuItemId) throws NoSuchMenuItemException {
         //TODO prepare delete functionality
         log.info(String.format("Deleting menuItem with id (%d)", menuItemId));
-        if(menuItemRepository.findById(menuItemId).isEmpty()){
+        if (menuItemRepository.findById(menuItemId).isEmpty()) {
             throw new NoSuchMenuItemException("No menuItem with id=" + menuItemId + " was found");
         }
         menuItemRepository.deleteById(menuItemId);
     }
 
     @Transactional
-    public Map<String, Long> addMenuItem(final MenuItem request) throws ItemAlreadyExsists{
-        if(menuItemRepository.countAllByTitle(request.getTitle()) > 0){
+    public Map<String, Long> addMenuItem(final MenuItem request) throws ItemAlreadyExsists {
+        if (menuItemRepository.countAllByTitle(request.getTitle()) > 0) {
             throw new ItemAlreadyExsists("Item with the title=" + request.getTitle() + " already exsists");
         }
         final MenuItemEntity menuItemEntity = menuItemMapper.sourceToDestination(request);
@@ -62,5 +62,15 @@ public class MenuItemsService {
         menuItemMap.put("id", id);
         return menuItemMap;
 
+    }
+
+    @Transactional
+    public Long changeMenuItem(final Long id, final MenuItem request) throws NoSuchMenuItemException {
+        final String newTitle = request.getTitle();
+        final MenuItemEntity menuItem = menuItemRepository.findById(id)
+                .orElseThrow(() -> new NoSuchMenuItemException("Item with the id=" + id + " was not found"));
+        menuItem.setTitle(newTitle);
+        final MenuItemEntity changedMenuItem = menuItemRepository.save(menuItem);
+        return changedMenuItem.getId();
     }
 }

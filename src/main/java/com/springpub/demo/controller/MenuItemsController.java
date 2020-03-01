@@ -51,4 +51,11 @@ public class MenuItemsController {
         return menuItemsService.addMenuItem(request);
     }
 
+    @PatchMapping(value = "/{menuItemId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @ResponseStatus(HttpStatus.OK)
+    public Long changeMenuItem(@PathVariable final Long id, @RequestBody final MenuItem request)
+            throws NoSuchMenuItemException {
+        return menuItemsService.changeMenuItem(id, request);
+    }
 }
