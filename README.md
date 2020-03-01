@@ -155,10 +155,20 @@ POST /java-spring-pub/orders
 ```
 ```
 {
-   "orderedItem": [
-      {"menuItemId": "1", "volume": "1550", "totalPrice" : "105"}
-      {"menuItemId": "2", "volume": "150", "totalPrice" : "45"}
-                ]
+   "orderedItems":[
+      {
+         "menuItem":{
+            "id":1
+         },
+         "volume":1550
+      },
+      {
+         "menuItem":{
+            "id":2
+         },
+         "volume":150
+      }
+   ]
 }
 ```
 Response: ``` 201 CREATED ```
