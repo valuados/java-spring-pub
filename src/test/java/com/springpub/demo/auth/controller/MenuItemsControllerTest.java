@@ -3,6 +3,9 @@ package com.springpub.demo.auth.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
+import java.util.Optional;
+
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -18,6 +21,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
 
         final String token = signInAsClient();
 
+        willReturn(findAllMenuItems()).given(menuItemRepository).findAll();
         mockMvc.perform(get("/menuItems").header("Authorization", token))
                 // then
                 .andExpect(status().isOk())
@@ -50,6 +54,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
 
         final String token = signInAsManager();
 
+        willReturn(findAllMenuItems()).given(menuItemRepository).findAll();
         mockMvc.perform(get("/menuItems").header("Authorization", token))
                 // then
                 .andExpect(status().isOk())
@@ -80,9 +85,21 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testDeleteManagerMenuItem() throws Exception {
 
+        final Long id = 1L;
         final String token = signInAsManager();
 
-        mockMvc.perform(delete("/menuItems/1").header("Authorization", token))
+        willReturn(Optional.of(getMenuItemEntity(
+                1L,
+                "Heineken",
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8)))
+                .given(menuItemRepository)
+                .findById(id);
+        mockMvc.perform(delete("/menuItems/" + id).header("Authorization", token))
                 // then
                 .andExpect(status().isOk());
     }
@@ -90,23 +107,44 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testDeleteManagerWrongMenuItem() throws Exception {
 
+        final Long id = 1L;
         final String token = signInAsManager();
 
+        willReturn(Optional.of(getMenuItemEntity(
+                1L,
+                "Heineken",
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8)))
+                .given(menuItemRepository)
+                .findById(id);
         mockMvc.perform(delete("/menuItems/99").header("Authorization", token))
                 // then
                 .andExpect(status().isBadRequest());
     }
 
-    /**
-     * TODO access denied redirect and 403 Forbidden
-     * @throws Exception
-     */
+
     @Test
     public void testDeleteClientMenuItem() throws Exception {
 
+        final Long id = 1L;
         final String token = signInAsClient();
 
-        mockMvc.perform(delete("/menuItems/2").header("Authorization", token))
+        willReturn(Optional.of(getMenuItemEntity(
+                1L,
+                "Heineken",
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8)))
+                .given(menuItemRepository)
+                .findById(id);
+        mockMvc.perform(delete("/menuItems/1").header("Authorization", token))
                 // then
                 .andExpect(status().isForbidden());
     }
@@ -114,22 +152,36 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testAddManagerMenuItem() throws Exception {
         final String token = signInAsManager();
+        final String title = "Heineken";
+        final Long id = 1L;
 
+        willReturn(0L).given(menuItemRepository).countAllByTitle(title);
+        willReturn(1L)
+                .given(menuItemRepository)
+                .save(getMenuItemEntity(
+                        null,
+                        title,
+                        "То самое немецкое с пенкой",
+                        500,
+                        500,
+                        6.50,
+                        6.50,
+                        3.8)).getId();
         mockMvc.perform(post("/menuItems").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "   \"title\" : \"Жигулевское\",\n" +
+                        "   \"title\" : \""+ title +"\",\n" +
                         "   \"description\" : \"То самое русское с пенкой\",\n" +
                         "   \"portion\" : 500,\n" +
                         "   \"bottleVolume\" : 500,\n" +
-                        "   \"portionPrice\" : 4.50,\n" +
-                        "   \"bottlePrice\" : 4.50,\n" +
-                        "   \"strength\" : 3.2\n" +
+                        "   \"portionPrice\" : 6.50,\n" +
+                        "   \"bottlePrice\" : 6.50,\n" +
+                        "   \"strength\" : 3.8\n" +
                         "}"))
                 // then
                 .andExpect(status().isCreated())
                 .andExpect(content().json("{\n" +
-                        "  \"id\" : 3\n" +
+                        "  \"id\" : " + id + "\n" +
                         "}"));
     }
 
@@ -155,6 +207,10 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testAddExistingMenuItem() throws Exception {
         final String token = signInAsManager();
+
+        final String title = "Heineken";
+
+        willReturn(1L).given(menuItemRepository).countAllByTitle(title);
 
         mockMvc.perform(post("/menuItems").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)

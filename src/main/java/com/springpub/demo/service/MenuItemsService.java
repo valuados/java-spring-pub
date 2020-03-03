@@ -29,12 +29,14 @@ public class MenuItemsService {
     private final MenuItemMapper menuItemMapper;
 
     public List<MenuItem> getList(){
-        return menuItemRepository
+
+        final List<MenuItem> menuItems = menuItemRepository
                 .findAll()
                 .stream()
                 .map(menuItemMapper::destinationToSource)
                 .sorted(Comparator.comparing(MenuItem::getTitle))
                 .collect(Collectors.toList());
+        return menuItems;
     }
 
     @Transactional
@@ -53,7 +55,8 @@ public class MenuItemsService {
             throw new ItemAlreadyExistsException("Item with the title=" + request.getTitle() + " already exsists");
         }
         final MenuItemEntity menuItemEntity = menuItemMapper.sourceToDestination(request);
-        final Long id = menuItemRepository.save(menuItemEntity).getId();
+        final MenuItemEntity menuItemEntitySaved = menuItemRepository.save(menuItemEntity);
+        final Long id = menuItemEntitySaved.getId();
 
         final Map<String, Long> menuItemMap = new HashMap<>();
         menuItemMap.put("id", id);

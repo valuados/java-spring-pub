@@ -1,7 +1,6 @@
 package com.springpub.demo.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springpub.demo.dto.MenuItem;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.entity.AuthInfoEntity;
 import com.springpub.demo.entity.MenuItemEntity;
@@ -9,7 +8,6 @@ import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.repository.AuthInfoRepository;
 import com.springpub.demo.repository.MenuItemRepository;
 import com.springpub.demo.repository.UserRepository;
-import com.springpub.demo.security.LoadUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.springpub.demo.security.UserRole.CLIENT;
@@ -49,8 +50,8 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
-    /*@MockBean
-    protected MenuItemRepository menuItemRepository;*/
+    @MockBean
+    protected MenuItemRepository menuItemRepository;
 
 
     protected String signInAsClient() throws Exception{
@@ -120,17 +121,53 @@ public abstract class AbstractControllerTest {
     }
 
 
-    /*protected MenuItemEntity createMenuItemInfo(){
+    protected List<MenuItemEntity> findAllMenuItems(){
+        final MenuItemEntity menuItem1 = getMenuItemEntity(
+                1L,
+                "Heineken",
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8);
+
+        final MenuItemEntity menuItem2 = getMenuItemEntity(
+                2L,
+                "Zubrowka",
+                "Водка Зубровка",
+                50, 1000,
+                5.00,
+                50.00,
+                40.0);
+
+        final List<MenuItemEntity> menuItems = new ArrayList<>();
+        menuItems.add(menuItem1);
+        menuItems.add(menuItem2);
+        return menuItems;
+    }
+
+    protected MenuItemEntity getMenuItemEntity(
+            final Long id,
+            final String title,
+            final String description,
+            final Integer portion,
+            final Integer bottleVolume,
+            final Double portionPrice,
+            final Double bottlePrice,
+            final Double strength
+    ) {
+
         final MenuItemEntity menuItem = new MenuItemEntity();
-        menuItem.setId(100L);
-        menuItem.setTitle("Test");
-        menuItem.setDescription("Test");
-        menuItem.setPortion(300);
-        menuItem.setBottleVolume(300);
-        menuItem.setPortionPrice(5.50);
-        menuItem.setBottlePrice(5.50);
-        menuItem.setStrength(1.1);
-        menuItemRepository.save(menuItem);
+        menuItem.setId(id);
+        menuItem.setTitle(title);
+        menuItem.setDescription(description);
+        menuItem.setPortion(portion);
+        menuItem.setBottleVolume(bottleVolume);
+        menuItem.setPortionPrice(BigDecimal.valueOf(portionPrice));
+        menuItem.setBottlePrice(BigDecimal.valueOf(bottlePrice));
+        menuItem.setStrength(BigDecimal.valueOf(strength));
+        menuItem.setOrderedItemEntity(null);
         return menuItem;
-    }*/
+    }
 }
