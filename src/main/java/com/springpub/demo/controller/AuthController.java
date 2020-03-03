@@ -1,12 +1,11 @@
 package com.springpub.demo.controller;
 
-import com.springpub.demo.dto.ClientSignUpRequest;
+import com.springpub.demo.dto.UserSignUpRequest;
 import com.springpub.demo.dto.UserSignInRequest;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.exception.UserAlreadyExistException;
 import com.springpub.demo.security.JwtUtil;
-import com.springpub.demo.service.ClientService;
-import com.springpub.demo.service.SignUpService;
+import com.springpub.demo.service.UserService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,11 +32,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-    private final ClientService signUpService;
+    private final UserService signUpService;
 
     @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public UserSignInResponse singUp(@RequestBody final ClientSignUpRequest request)
+    public UserSignInResponse singUp(@RequestBody final UserSignUpRequest request)
             throws UserAlreadyExistException {
         signUpService.signUp(request);
         return signIn(new UserSignInRequest(request.getEmail(), request.getPassword()));

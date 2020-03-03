@@ -2,6 +2,7 @@ package com.springpub.demo.controller;
 
 import com.springpub.demo.dto.Order;
 import com.springpub.demo.dto.OrderedItem;
+import com.springpub.demo.exception.UserNotFoundException;
 import com.springpub.demo.service.OrdersService;
 import lombok.Data;
 import lombok.extern.java.Log;
@@ -32,8 +33,9 @@ public class OrdersController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order add(@RequestBody Order order, final Authentication authentication){
+    public Order add(@RequestBody final Order order, final Authentication authentication) throws UserNotFoundException {
 
+        authentication.getPrincipal();
         return ordersService.create(order, authentication.getName());
 
     }

@@ -11,10 +11,7 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -59,5 +56,10 @@ public class MenuItemsService {
         menuItemMap.put("id", id);
         return menuItemMap;
 
+    }
+
+    public MenuItem getMenuItemById(Long id) {
+        final Optional<MenuItemEntity> menuItemEntity = menuItemRepository.findById(id);
+        return menuItemMapper.destinationToSource(menuItemEntity.orElse(null));
     }
 }

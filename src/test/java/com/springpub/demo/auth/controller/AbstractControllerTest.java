@@ -1,15 +1,14 @@
 package com.springpub.demo.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.dto.User;
+import com.springpub.demo.dto.Gender;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.entity.AuthInfoEntity;
-import com.springpub.demo.entity.MenuItemEntity;
 import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.repository.AuthInfoRepository;
-import com.springpub.demo.repository.MenuItemRepository;
 import com.springpub.demo.repository.UserRepository;
-import com.springpub.demo.security.LoadUserDetailService;
+import com.springpub.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +25,7 @@ import static com.springpub.demo.security.UserRole.MANAGER;
 import static org.hamcrest.Matchers.hasLength;
 import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author valuados
@@ -49,6 +47,8 @@ public abstract class AbstractControllerTest {
     protected AuthInfoRepository authInfoRepository;
     @MockBean
     protected UserRepository userRepository;
+    @MockBean
+    protected UserService userService;
     /*@MockBean
     protected MenuItemRepository menuItemRepository;*/
 
@@ -56,7 +56,6 @@ public abstract class AbstractControllerTest {
     protected String signInAsClient() throws Exception{
         final AuthInfoEntity authInfo = createClientAuthInfo();
         willReturn(Optional.of(authInfo)).given(authInfoRepository).findByLogin("vasya@gmail.com");
-
         final String response = mockMvc.perform(post("/sign-in")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
@@ -69,6 +68,7 @@ public abstract class AbstractControllerTest {
                 .andReturn().getResponse().getContentAsString();
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
+
 
     protected String signInAsManager() throws Exception{
         final AuthInfoEntity authInfo = createManagerAuthInfo();
@@ -87,14 +87,6 @@ public abstract class AbstractControllerTest {
         return "Bearer " + objectMapper.readValue(response, UserSignInResponse.class).getToken();
     }
 
-    /*protected String createTestMenuItem() throws Exception{
-        final String token = signInAsManager();
-        final MenuItemEntity menuItemEntity = createMenuItemInfo();
-        willReturn(Optional.of(menuItemEntity)).given(menuItemRepository).findById(menuItemEntity.getId());
-
-        return token;
-    }*/
-
     protected AuthInfoEntity createClientAuthInfo() {
         final UserEntity user = new UserEntity();
         user.setUserRole(CLIENT);
@@ -105,6 +97,31 @@ public abstract class AbstractControllerTest {
         authInfo.setPassword(passwordEncoder.encode("qwerty"));
         authInfo.setUser(user);
         return authInfo;
+
+
+    }
+
+    protected UserEntity createUserEntity() {
+        final UserEntity user = new UserEntity();
+        user.setUserRole(CLIENT);
+        user.setEmail("vasya@gmail.com");
+        user.setFio("NVA");
+        user.setGender(Gender.MALE);
+        user.setId(1L);
+
+        return user;
+    }
+
+    protected User createClient() {
+        final User user = new User();
+        user.setId(1L);
+        user.setFio("VNA");
+        user.setGender(Gender.MALE);
+        user.setMail("vasya@gmail.com");
+        user.setPassword("password");
+        user.setPhoneNumber("123321");
+
+        return user;
     }
 
     protected AuthInfoEntity createManagerAuthInfo() {
@@ -119,18 +136,4 @@ public abstract class AbstractControllerTest {
         return authInfo;
     }
 
-
-    /*protected MenuItemEntity createMenuItemInfo(){
-        final MenuItemEntity menuItem = new MenuItemEntity();
-        menuItem.setId(100L);
-        menuItem.setTitle("Test");
-        menuItem.setDescription("Test");
-        menuItem.setPortion(300);
-        menuItem.setBottleVolume(300);
-        menuItem.setPortionPrice(5.50);
-        menuItem.setBottlePrice(5.50);
-        menuItem.setStrength(1.1);
-        menuItemRepository.save(menuItem);
-        return menuItem;
-    }*/
 }

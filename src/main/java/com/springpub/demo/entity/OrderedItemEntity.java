@@ -32,4 +32,11 @@ public class OrderedItemEntity extends BaseEntity{
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
+    public BigDecimal getMenuItemPortionPrice(){
+        return this.getMenuItemEntity().getPortionPrice();
+    }
+
+    public Integer getMenuItemPortion(){
+        return this.getMenuItemEntity().getPortion();
+    }
 }

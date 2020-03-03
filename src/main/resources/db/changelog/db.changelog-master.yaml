@@ -5,7 +5,7 @@ databaseChangeLog:
       author: valuados
       changes:
         - createTable:
-            tableName: user
+            tableName: users
             columns:
               - column:
                   name: id
@@ -60,8 +60,8 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_auth_info_user
-                    references: user(id)
+                    foreignKeyName: fk_auth_info_users
+                    references: users(id)
   - changeSet:
       id: init menu_item table
       author: valuados
@@ -191,20 +191,18 @@ databaseChangeLog:
               - column:
                   name: total_price
                   type: DECIMAL(8,2)
-                  constraints:
-                    nullable: false
               - column:
                   name: status
                   type: varchar(512)
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: user_id
                   type: BIGINT
                   constraints:
-                    nullable: false
-                    foreignKeyName: fk_order_user
-                    references: user(id)
+                    #nullable: false
+                    foreignKeyName: fk_order_users
+                    references: users(id)
         - createTable:
             tableName: ordered_item
             columns:
@@ -219,21 +217,41 @@ databaseChangeLog:
                   name: menu_item_id
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    #nullable: false
                     foreignKeyName: fk_omi_mi
                     references: menu_item(id)
               - column:
                   name: order_id
                   type: BIGINT
-                  constraints:
-                    nullable: false
               - column:
                   name: volume
                   type: INT
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: total_price
                   type: DECIMAL(8,2)
                   constraints:
-                    nullable: false
+                    #nullable: false
+  - changeSet:
+      id: insert user and auth_info
+      author: valuados
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: email
+                  value: "vasya@gmail.com"
+              - column:
+                  name: fio
+                  value: "NVA"
+              - column:
+                  name: gender
+                  value: "MALE"
+              - column:
+                  name: user_role
+                  value: "CLIENT"

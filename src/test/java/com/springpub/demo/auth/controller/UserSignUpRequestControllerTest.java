@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 
-public class ClientSignUpRequestControllerTest {
+public class UserSignUpRequestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

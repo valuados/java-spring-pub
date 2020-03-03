@@ -1,10 +1,13 @@
 package com.springpub.demo.service;
 
-import com.springpub.demo.dto.ClientSignUpRequest;
+import com.springpub.demo.dto.User;
+import com.springpub.demo.dto.UserSignUpRequest;
 import com.springpub.demo.entity.AuthInfoEntity;
 import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.exception.UserAlreadyExistException;
-import com.springpub.demo.mapper.ClientSignUpRequestMapper;
+import com.springpub.demo.exception.UserNotFoundException;
+import com.springpub.demo.mapper.UserMapper;
+import com.springpub.demo.mapper.UserSignUpRequestMapper;
 import com.springpub.demo.repository.AuthInfoRepository;
 import com.springpub.demo.repository.UserRepository;
 import com.springpub.demo.security.UserRole;
@@ -20,36 +23,46 @@ import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
-public class ClientService {
+public class UserService {
 
     private final AuthInfoRepository authInfoRepository;
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    private ClientSignUpRequestMapper clientSignUpRequestMapper;
+    private UserSignUpRequestMapper userSignUpRequestMapper;
+    private UserMapper userMapper;
 
     @Transactional
-    public void signUp(final ClientSignUpRequest request) throws UserAlreadyExistException {
+    public void signUp(final UserSignUpRequest request) throws UserAlreadyExistException {
         if (authInfoRepository.findByLogin(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistException("User with email=" + request.getEmail() + " already exists");
         }
         saveUser(request);
     }
 
-    public void saveUser(final ClientSignUpRequest request){
-        final UserEntity userEntity = clientSignUpRequestMapper.sourceToDestination(request);
+    public void saveUser(final UserSignUpRequest request){
+        final UserEntity userEntity = userSignUpRequestMapper.sourceToDestination(request);
         userEntity.setUserRole(UserRole.CLIENT);
         final UserEntity savedUser = userRepository.save(userEntity);
         saveAuthInfo(request, savedUser);
     }
 
-    private void saveAuthInfo(final ClientSignUpRequest request, final UserEntity savedUser) {
+    private void saveAuthInfo(final UserSignUpRequest request, final UserEntity savedUser) {
         final AuthInfoEntity authInfoEntity = new AuthInfoEntity();
         authInfoEntity.setLogin(request.getEmail());
         authInfoEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         authInfoEntity.setUser(savedUser);
         authInfoRepository.save(authInfoEntity);
+    }
+
+    public User findByEmail(final String email) throws UserNotFoundException {
+        final UserEntity userEntity = userRepository.findByEmail(email);
+        if(userRepository.findByEmail(email) != null){
+            throw new UserNotFoundException("User with the email " +email + " was not found");
+        }
+        return userMapper.destinationToSource(userEntity);
+
     }
 
 

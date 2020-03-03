@@ -1,16 +1,14 @@
 package com.springpub.demo.auth.controller;
 
+import com.springpub.demo.dto.User;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @author valuados
@@ -24,27 +22,52 @@ public class OrdersControllerTest extends AbstractControllerTest{
     public void testClientAddOrder() throws Exception{
         final String token = signInAsClient();
 
+        final User user = createClient();
+        willReturn(user).given(userService).findByEmail("vasya@gmail.com");
+
         mockMvc.perform(post("/orders")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
-                        "   \"orderedItemRequest\": [\n" +
-                        "      {\"menuItemId\": \"1\", \"volume\": 1500},\n" +
-                        "      {\"menuItemId\": \"2\", \"volume\": 150}\n" +
-                        "                ]\n" +
+                        "   \"orderedItems\":[\n" +
+                        "      {\n" +
+                        "         \"menuItem\":{\n" +
+                        "            \"id\":1\n" +
+                        "         },\n" +
+                        "         \"volume\":1500\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "         \"menuItem\":{\n" +
+                        "            \"id\":2\n" +
+                        "         },\n" +
+                        "         \"volume\":150\n" +
+                        "      }\n" +
+                        "   ]\n" +
                         "}"))
                 //then
                 .andExpect(status().isCreated())
                 .andExpect(content().json("{\n" +
                         "  \"id\" : 1,\n" +
                         "  \"userId\" : 1,\n" +
-                        "  \"totalPrice\" : 64.50,\n" +
+                        "  \"totalPrice\" : 34.50,\n" +
                         "  \"status\" : \"NEW\",\n" +
-                        //TODO remove details and check for valid
-                        "   \"orderedItems\": [\n" +
-                        "      {\"menuItemId\": 1, \"volume\": 1550, \"totalPrice\" : 19.50},\n" +
-                        "      {\"menuItemId\": 2, \"volume\": 150, \"totalPrice\" : 45.00}\n" +
-                        "                ]\n" +
+                        "  \"orderedItems\":[\n" +
+                        "      {\n" +
+                        "         \"menuItem\":{\n" +
+                        "            \"id\":1\n" +
+                        "         },\n" +
+                        "         \"volume\":1500,\n" +
+                        "         \"totalPrice\": 19.50\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "         \"menuItem\":{\n" +
+                        "            \"id\":2\n" +
+                        "         },\n" +
+                        "         \"volume\":150,\n" +
+                        "         \"totalPrice\": 15.00\n" +
+                        "      }\n" +
+                        "   ]\n" +
                         "}"));
     }
+
 }

@@ -4,6 +4,7 @@ package com.springpub.demo.controller;
 import com.springpub.demo.exception.ItemAlreadyExistsException;
 import com.springpub.demo.exception.MenuItemNotFoundException;
 import com.springpub.demo.exception.UserAlreadyExistException;
+import com.springpub.demo.exception.UserNotFoundException;
 import lombok.Data;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(
             {
                     UserAlreadyExistException.class,
-                    UsernameNotFoundException.class,
+                    UserNotFoundException.class,
 
                     ItemAlreadyExistsException.class,
                     MenuItemNotFoundException.class
