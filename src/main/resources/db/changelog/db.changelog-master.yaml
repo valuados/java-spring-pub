@@ -192,17 +192,17 @@ databaseChangeLog:
                   name: total_price
                   type: DECIMAL(8,2)
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: status
                   type: varchar(512)
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: user_id
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    #nullable: false
                     foreignKeyName: fk_order_user
                     references: user(id)
         - createTable:
@@ -219,21 +219,21 @@ databaseChangeLog:
                   name: menu_item_id
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    #nullable: false
                     foreignKeyName: fk_omi_mi
                     references: menu_item(id)
               - column:
                   name: order_id
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: volume
                   type: INT
                   constraints:
-                    nullable: false
+                    #nullable: false
               - column:
                   name: total_price
                   type: DECIMAL(8,2)
                   constraints:
-                    nullable: false
+                    #nullable: false

@@ -1,11 +1,13 @@
 package com.springpub.demo.auth.controller;
 
+import com.springpub.demo.entity.MenuItemEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import java.util.Optional;
 
 import static org.mockito.BDDMockito.willReturn;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -156,17 +158,17 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
         final Long id = 1L;
 
         willReturn(0L).given(menuItemRepository).countAllByTitle(title);
-        willReturn(1L)
+        willReturn(getMenuItemEntity(
+                id,
+                title,
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8))
                 .given(menuItemRepository)
-                .save(getMenuItemEntity(
-                        null,
-                        title,
-                        "То самое немецкое с пенкой",
-                        500,
-                        500,
-                        6.50,
-                        6.50,
-                        3.8)).getId();
+                .save(any(MenuItemEntity.class));
         mockMvc.perform(post("/menuItems").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
@@ -188,7 +190,20 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testAddClientMenuItem() throws Exception {
         final String token = signInAsClient();
+        final String title = "Жигулевское2";
+        final Long id = 1L;
 
+        willReturn(getMenuItemEntity(
+                id,
+                title,
+                "То самое немецкое с пенкой",
+                500,
+                500,
+                6.50,
+                6.50,
+                3.8))
+                .given(menuItemRepository)
+                .save(any(MenuItemEntity.class));
         mockMvc.perform(post("/menuItems").header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
@@ -207,7 +222,6 @@ public class MenuItemsControllerTest extends AbstractControllerTest{
     @Test
     public void testAddExistingMenuItem() throws Exception {
         final String token = signInAsManager();
-
         final String title = "Heineken";
 
         willReturn(1L).given(menuItemRepository).countAllByTitle(title);

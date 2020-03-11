@@ -15,14 +15,14 @@ import java.util.List;
 @Table(name="orders")
 public class OrderEntity extends BaseEntity {
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},

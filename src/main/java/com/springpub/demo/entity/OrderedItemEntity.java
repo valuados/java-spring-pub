@@ -26,7 +26,7 @@ public class OrderedItemEntity extends BaseEntity{
     /*@Column(name = "order_id")
     private Long orderId;*/
 
-    @Column(name = "volume", nullable = false)
+    @Column(name = "volume")
     private Integer volume;
 
     @Column(name = "total_price")
