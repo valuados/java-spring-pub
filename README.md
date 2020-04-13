@@ -154,9 +154,7 @@ POST /java-spring-pub/orders/
 ```
 ```
 {
-  "creationDate" : "19.01.1995",
-  "updateDate" : "19.01.1995",
-  "paidDate" : "19.01.1995"
+  "creationDate" : "01.01.2020",
 }
 ```
 
@@ -168,6 +166,9 @@ Response: ``` 201 CREATED ```
   "userId" : 1,
   "totalPrice" : 0,
   "status" : "NEW",
+  "creationDate" : "19.01.1995",
+  "updateDate" : null,
+  "paidDate" : null,
   "orderedItems": null
 }
 ```
