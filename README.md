@@ -98,7 +98,7 @@ POST /java-spring-pub/sign-up
   "email" : "vasya@gmail.com",
   "password" : "qwerty",
   "fio" : "Пупкин Василий Иванович",
-  "mobileNumber" : "+8-800-555-35-35",
+  "phoneNumber" : "+8-800-555-35-35",
   "gender" : "male", 
   "birthDate" : "19.01.1995" 
 }
@@ -137,21 +137,45 @@ Response: ```200 OK```
   {
     "id" : 1, 
     "title" : "Zubrowka",
+    "description" : "Водка Зубровка",
     "portion" : "50", 
     "bottleVolume" : "1000",
     "portionPrice" : "5", 
     "bottlePrice" : "50", 
-    "strength" : "40",
-    "description" : "Водка Зубровка"
+    "strength" : "40"
   }
 ]
 ```
 
 ## JSPP-4 Как "Клиент" я хочу сделать "Order", если пользователь зарегистрирован.
-
 Request:
 ```
-POST /java-spring-pub/orders
+POST /java-spring-pub/orders/
+```
+```
+{
+  "creationDate" : "19.01.1995",
+  "updateDate" : "19.01.1995",
+  "paidDate" : "19.01.1995"
+}
+```
+
+Response: ``` 201 CREATED ```
+
+```json
+{
+  "id" : 1,
+  "userId" : 1,
+  "totalPrice" : 0,
+  "status" : "NEW",
+  "orderedItems": null
+}
+```
+
+## JSPP-5 Как "Клиент" я хочу добавить "MenuItem" в "Order", если пользователь зарегистрирован.
+Request:
+```
+POST /java-spring-pub/orders/add
 ```
 ```
 {
@@ -198,7 +222,7 @@ Response: ``` 201 CREATED ```
 }
 ```
 
-## JSPP-5 Как "Клиент" я хочу оплатить "Payment", если пользователь зарегистрирован.
+## JSPP-6 Как "Клиент" я хочу оплатить "Payment", если пользователь зарегистрирован.
 
 Request:
 ```
@@ -221,7 +245,7 @@ Response: ```200 OK```
 }
 ```
 
-## JSPP-6 Как "Менеджер" я хочу добавить "Menu Item", если пользователь зарегистрирован.
+## JSPP-7 Как "Менеджер" я хочу добавить "Menu Item", если пользователь зарегистрирован.
 
 Request:
 ```
@@ -230,17 +254,17 @@ POST /java-spring-pub/menuitems
 ```json
 {
     "title" : "Zubrowka",
+    "description" : "Водка Зубровка",
     "portion" : 50, 
     "bottleVolume" : 1000,
     "portionPrice" : 5.0, 
     "bottlePrice" : 50.0, 
-    "strength" : 40,
-    "description" : "Водка Зубровка"
+    "strength" : 40
   }
 ```
 Response: ```200 OK```
 
-## JSPP-7 Как "Менеджер", я хочу удалить "Menu Item", и если такое наименование есть, удаляю его
+## JSPP-8 Как "Менеджер", я хочу удалить "Menu Item", и если такое наименование есть, удаляю его
 
 Request:
 ```
@@ -250,7 +274,7 @@ DELETE /api/manager/menuitems/${itemId}
 Response: 200 OK
 ```
 
-## JSPP-8 Как "Менеджер" я хочу посмотреть "Прибыль" за промежуток времени, если пользователь зарегистрирован.
+## JSPP-9 Как "Менеджер" я хочу посмотреть "Прибыль" за промежуток времени, если пользователь зарегистрирован.
 Время передается либо датой, либо Timestamp-ом
 
 Request:
@@ -264,7 +288,7 @@ Response: ```200 OK```
 }
 ```
 
-## JSPP-9 Как "Менеджер" я хочу увидеть объем проданных "Menu Item", если пользователь зарегистрирован.
+## JSPP-10 Как "Менеджер" я хочу увидеть объем проданных "Menu Item", если пользователь зарегистрирован.
 
 Request:
 ```
@@ -280,7 +304,7 @@ Response: ```200 OK```
   }
 ```
 
-## JSPP-10 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого id есть, изменяю ему цену
+## JSPP-11 Как "Менеджер", я хочу изменить цену "Menu Item", и если такого id есть, изменяю ему цену
 Request:
 ```
 PATCH /java-spring-pub/menuitems/${menuItemId}
@@ -292,7 +316,7 @@ PATCH /java-spring-pub/menuitems/${menuItemId}
 ```
 Response: ```200 OK```
 
-## JSPP-11 Как "Менеджер", я хочу изменить порцию(portion) "Menu Item", и если такого id есть, изменяю порцию.
+## JSPP-12 Как "Менеджер", я хочу изменить порцию(portion) "Menu Item", и если такого id есть, изменяю порцию.
 Request:
 ```
 PATCH /java-spring-pub/menuitems/${menuItemId}
@@ -303,7 +327,7 @@ PATCH /java-spring-pub/menuitems/${menuItemId}
 }
 ```
 Response: ```200 OK```
-## JSPP-12 Как "Менеджер", я хочу изменить название(title) "Menu Item", и если такого id есть, изменяю название.
+## JSPP-13 Как "Менеджер", я хочу изменить название(title) "Menu Item", и если такого id есть, изменяю название.
 Request:
 ```
 PATCH /java-spring-pub/menuitems/${menuItemId}
