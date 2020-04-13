@@ -157,14 +157,14 @@ Response: ``` 201 CREATED ```
 
 ```json
 {
-  "id" : 1,
-  "userId" : 1,
-  "totalPrice" : 0,
-  "status" : "NEW",
-  "creationDate" : "05.04.2020",
-  "updateDate" : null,
-  "paidDate" : null,
-  "orderedItems": null
+  "id":1,
+  "userId":1,
+  "totalPrice":0,
+  "status":"NEW",
+  "creationDate":"2020-04-13@16:34:12",
+  "updateDate":null,
+  "paidDate":null,
+  "orderedItemRequests":null
 }
 ```
 
