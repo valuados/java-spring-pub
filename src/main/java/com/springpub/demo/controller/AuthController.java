@@ -6,7 +6,6 @@ import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.exception.UserAlreadyExistException;
 import com.springpub.demo.security.JwtUtil;
 import com.springpub.demo.service.ClientService;
-import com.springpub.demo.service.SignUpService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,18 +1,22 @@
 package com.springpub.demo.service;
 
+import com.springpub.demo.dto.Client;
 import com.springpub.demo.dto.ClientSignUpRequest;
 import com.springpub.demo.entity.AuthInfoEntity;
 import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.exception.UserAlreadyExistException;
+import com.springpub.demo.mapper.ClientMapper;
 import com.springpub.demo.mapper.ClientSignUpRequestMapper;
 import com.springpub.demo.repository.AuthInfoRepository;
 import com.springpub.demo.repository.UserRepository;
 import com.springpub.demo.security.UserRole;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 /**
  * @author valuados
@@ -27,7 +31,8 @@ public class ClientService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private ClientSignUpRequestMapper clientSignUpRequestMapper;
+    private final ClientSignUpRequestMapper clientSignUpRequestMapper;
+    private ClientMapper clientMapper;
 
     @Transactional
     public void signUp(final ClientSignUpRequest request) throws UserAlreadyExistException {
@@ -42,6 +47,12 @@ public class ClientService {
         userEntity.setUserRole(UserRole.CLIENT);
         final UserEntity savedUser = userRepository.save(userEntity);
         saveAuthInfo(request, savedUser);
+    }
+
+    public Client getClientByEmail(final String email) throws UsernameNotFoundException{
+        final Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+        return clientMapper.destinationToSource(userEntity
+                .orElseThrow(()-> new UsernameNotFoundException("No user found with username " + email)));
     }
 
     private void saveAuthInfo(final ClientSignUpRequest request, final UserEntity savedUser) {

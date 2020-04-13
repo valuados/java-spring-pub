@@ -1,6 +1,7 @@
 package com.springpub.demo.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.springpub.demo.dto.Gender;
 import com.springpub.demo.dto.UserSignInResponse;
 import com.springpub.demo.entity.AuthInfoEntity;
 import com.springpub.demo.entity.MenuItemEntity;
@@ -8,6 +9,7 @@ import com.springpub.demo.entity.UserEntity;
 import com.springpub.demo.repository.AuthInfoRepository;
 import com.springpub.demo.repository.MenuItemRepository;
 import com.springpub.demo.repository.UserRepository;
+import com.springpub.demo.security.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -96,6 +99,8 @@ public abstract class AbstractControllerTest {
         return token;
     }*/
 
+
+
     protected AuthInfoEntity createClientAuthInfo() {
         final UserEntity user = new UserEntity();
         user.setUserRole(CLIENT);
@@ -120,6 +125,16 @@ public abstract class AbstractControllerTest {
         return authInfo;
     }
 
+    protected UserEntity getUserEntity(Long id, String email) {
+        final UserEntity userEntity = new UserEntity();
+        userEntity.setId(id);
+        userEntity.setEmail(email);
+        userEntity.setGender(Gender.MALE);
+        userEntity.setFio("Krya Krya Krya");
+        userEntity.setBirthDate(LocalDate.now());
+        userEntity.setUserRole(UserRole.CLIENT);
+        return userEntity;
+    }
 
     protected List<MenuItemEntity> findAllMenuItems(){
         final MenuItemEntity menuItem1 = getMenuItemEntity(

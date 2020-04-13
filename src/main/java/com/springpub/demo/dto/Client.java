@@ -10,8 +10,7 @@ import java.time.LocalDate;
 @Data
 public class Client {
     private Long id;
-    private String mail;
-    private String password;
+    private String email;
     private String fio;
     private String phoneNumber;
     private Gender gender;

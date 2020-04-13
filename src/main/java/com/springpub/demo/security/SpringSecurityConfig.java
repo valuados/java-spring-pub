@@ -30,14 +30,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //TODO check roles and uris
                 .csrf().disable()
                 .authorizeRequests()
-
+                //menuItems
                 .antMatchers(HttpMethod.POST, "/menuItems").hasRole(MANAGER.name())
                 .antMatchers(HttpMethod.GET, "/menuItems").hasAnyRole(CLIENT.name(), MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/menuItems").hasRole(MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/menuItems/*").hasAnyRole(MANAGER.name())
-
-                .antMatchers(HttpMethod.POST, "/orders").hasRole(CLIENT.name())
-
+                //orders
+                .antMatchers(HttpMethod.POST, "/orders/create").hasRole(CLIENT.name())
+                .antMatchers(HttpMethod.POST, "/orders/addMenuItems").hasRole(CLIENT.name())
+                //auth
                 .antMatchers(HttpMethod.POST, "/sign-in", "/sign-up").permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -30,11 +30,17 @@ public class OrdersController {
     private final OrdersService ordersService;
 
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order add(@RequestBody Order order, final Authentication authentication){
+    public Order add(@RequestBody Order request, final Authentication authentication){
 
-        return ordersService.create(order, authentication.getName());
+        return ordersService.create(request, authentication);
 
+    }
+
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Order create(@RequestBody Order request, final Authentication authentication){
+        return ordersService.create(request, authentication);
     }
 }
