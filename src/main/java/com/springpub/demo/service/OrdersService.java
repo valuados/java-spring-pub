@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +24,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrdersService {
+
+    private final Clock clock;
 
     final OrderedItemService orderedItemService;
     final ClientService clientService;
@@ -42,7 +45,7 @@ public class OrdersService {
         order.setUserId(clientService.getClientByEmail(authentication.getName()).getId());
         order.setTotalPrice(BigDecimal.ZERO);
         order.setStatus(OrderStatus.NEW);
-        order.setCreationDate(LocalDateTime.now());
+        order.setCreationDate(LocalDateTime.now(clock));
         return order;
     }
 

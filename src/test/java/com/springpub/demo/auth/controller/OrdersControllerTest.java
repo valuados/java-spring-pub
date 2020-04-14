@@ -1,20 +1,25 @@
 package com.springpub.demo.auth.controller;
 
 import com.springpub.demo.dto.Gender;
+import com.springpub.demo.entity.MenuItemEntity;
 import com.springpub.demo.entity.UserEntity;
+import com.springpub.demo.repository.UserRepository;
 import com.springpub.demo.security.UserRole;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.management.relation.Role;
-import java.time.LocalDate;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.willReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -28,12 +33,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class OrdersControllerTest extends AbstractControllerTest{
 
+    private final static LocalDateTime LOCAL_DATE = LocalDateTime.of(2020, 4, 5, 14, 31, 30);
+
+    @MockBean
+    protected Clock clock;
+
     @Test
     public void testClientAddEmptyOrder() throws Exception{
+        final Clock fixedClock = Clock.fixed(LOCAL_DATE.toInstant(ZoneOffset.UTC), ZoneId.ofOffset("UTC", (ZoneOffset.UTC)));
         final String token = signInAsClient();
         final Long id = 1L;
         final String email = "vasya@gmail.com";
         willReturn(Optional.of(getUserEntity(id, email))).given(userRepository).findByEmail(email);
+        willReturn(fixedClock.instant()).given(clock).instant();
+        willReturn(fixedClock.getZone()).given(clock).getZone();
         mockMvc.perform(post("/orders/create")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -46,7 +59,7 @@ public class OrdersControllerTest extends AbstractControllerTest{
                         "\"userId\":1," +
                         "\"totalPrice\":0," +
                         "\"status\":\"NEW\"," +
-                        //"\"creationDate\":\"2020-04-13@16:34:12\"," +
+                        "\"creationDate\":\"" + LOCAL_DATE.format(DateTimeFormatter.ofPattern("yyyy-MM-dd@HH:mm:ss"))+ "\"," +
                         "\"updateDate\":null," +
                         "\"paidDate\":null," +
                         "\"orderedItemRequests\":null" +
