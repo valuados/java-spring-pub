@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
     @Column(name = "total_price")

@@ -6,6 +6,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author valuados
@@ -29,4 +31,10 @@ public class UserEntity extends BaseEntity {
 
     @Column(name = "user_role")
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "userEntity",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+            )
+    private List<OrderEntity> orderEntityList = new ArrayList<>();
 }
