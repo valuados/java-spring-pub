@@ -33,5 +33,5 @@ public class UserEntity extends BaseEntity {
     private UserRole userRole;
 
     @OneToMany(mappedBy = "userEntity")
-    private List<OrderEntity> orderEntityList = new ArrayList<>();
+    private List<OrderEntity> orderEntityList;
 }
