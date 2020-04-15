@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author valuados
  */
 @Data
-public class Client {
+public class UserDTO {
     private Long id;
     private String email;
     private String fio;

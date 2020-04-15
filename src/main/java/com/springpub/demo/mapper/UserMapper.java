@@ -1,6 +1,6 @@
 package com.springpub.demo.mapper;
 
-import com.springpub.demo.dto.Client;
+import com.springpub.demo.dto.UserDTO;
 import com.springpub.demo.entity.UserEntity;
 import org.mapstruct.Mapper;
 
@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
  * @author valuados
  */
 @Mapper(componentModel = "spring")
-public interface ClientMapper {
+public interface UserMapper {
 
-    UserEntity sourceToDestination(Client source);
+    UserEntity sourceToDestination(UserDTO source);
 
-    Client destinationToSource(UserEntity destination);
+    UserDTO destinationToSource(UserEntity destination);
 }

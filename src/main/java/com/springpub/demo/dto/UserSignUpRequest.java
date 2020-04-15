@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author valuados
  */
 @Data
-public class ClientSignUpRequest {
+public class UserSignUpRequest {
 
         private String email;
         private String password;

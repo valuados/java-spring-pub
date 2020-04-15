@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name="orders")
 public class OrderEntity extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 

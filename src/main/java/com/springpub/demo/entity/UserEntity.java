@@ -32,9 +32,6 @@ public class UserEntity extends BaseEntity {
     @Column(name = "user_role")
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "userEntity",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
-            )
+    @OneToMany(mappedBy = "userEntity")
     private List<OrderEntity> orderEntityList = new ArrayList<>();
 }

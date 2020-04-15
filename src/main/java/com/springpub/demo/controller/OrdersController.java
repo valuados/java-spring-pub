@@ -34,13 +34,13 @@ public class OrdersController {
     @ResponseStatus(HttpStatus.CREATED)
     public Order add(@RequestBody Order request, final Authentication authentication){
 
-        return ordersService.create(request, authentication);
+        return ordersService.create(authentication.getName());
 
     }
-
+    //@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order create(@RequestBody Order request, final Authentication authentication){
-        return ordersService.create(request, authentication);
+    public Order create(final Authentication authentication){
+        return ordersService.create(authentication.getName());
     }
 }
