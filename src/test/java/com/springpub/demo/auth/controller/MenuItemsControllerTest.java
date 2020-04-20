@@ -1,8 +1,11 @@
 package com.springpub.demo.auth.controller;
 
 import com.springpub.demo.auth.controller.helper.AbstractControllerTest;
+import com.springpub.demo.auth.controller.helper.MenuItemsHelperTest;
 import com.springpub.demo.entity.MenuItemEntity;
+import com.springpub.demo.repository.MenuItemRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
 import java.util.Optional;
@@ -19,12 +22,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MenuItemsControllerTest extends AbstractControllerTest {
 
+    @MockBean
+    protected MenuItemRepository menuItemRepository;
+
     @Test
     public void testGetClientMenuItem() throws Exception {
 
         final String token = signInAsClient();
 
-        willReturn(findAllMenuItems()).given(menuItemRepository).findAll();
+        willReturn(MenuItemsHelperTest.findAllMenuItems()).given(menuItemRepository).findAll();
         mockMvc.perform(get("/menuItems").header("Authorization", token))
                 // then
                 .andExpect(status().isOk())
@@ -57,7 +63,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
 
         final String token = signInAsManager();
 
-        willReturn(findAllMenuItems()).given(menuItemRepository).findAll();
+        willReturn(MenuItemsHelperTest.findAllMenuItems()).given(menuItemRepository).findAll();
         mockMvc.perform(get("/menuItems").header("Authorization", token))
                 // then
                 .andExpect(status().isOk())
@@ -91,7 +97,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
         final Long id = 1L;
         final String token = signInAsManager();
 
-        willReturn(Optional.of(getMenuItemEntity(
+        willReturn(Optional.of(MenuItemsHelperTest.getMenuItemEntity(
                 1L,
                 "Heineken",
                 "То самое немецкое с пенкой",
@@ -113,7 +119,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
         final Long id = 1L;
         final String token = signInAsManager();
 
-        willReturn(Optional.of(getMenuItemEntity(
+        willReturn(Optional.of(MenuItemsHelperTest.getMenuItemEntity(
                 1L,
                 "Heineken",
                 "То самое немецкое с пенкой",
@@ -136,7 +142,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
         final Long id = 1L;
         final String token = signInAsClient();
 
-        willReturn(Optional.of(getMenuItemEntity(
+        willReturn(Optional.of(MenuItemsHelperTest.getMenuItemEntity(
                 1L,
                 "Heineken",
                 "То самое немецкое с пенкой",
@@ -159,7 +165,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
         final Long id = 1L;
 
         willReturn(0L).given(menuItemRepository).countAllByTitle(title);
-        willReturn(getMenuItemEntity(
+        willReturn(MenuItemsHelperTest.getMenuItemEntity(
                 id,
                 title,
                 "То самое немецкое с пенкой",
@@ -194,7 +200,7 @@ public class MenuItemsControllerTest extends AbstractControllerTest {
         final String title = "Жигулевское2";
         final Long id = 1L;
 
-        willReturn(getMenuItemEntity(
+        willReturn(MenuItemsHelperTest.getMenuItemEntity(
                 id,
                 title,
                 "То самое немецкое с пенкой",
