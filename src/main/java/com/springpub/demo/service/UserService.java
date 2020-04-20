@@ -51,19 +51,10 @@ public class UserService {
         saveAuthInfo(request, savedUser);
     }
 
-    public UserDTO getClientByEmail(final String email) throws UsernameNotFoundException{
+    public UserDTO getUserByEmail(final String email) throws UsernameNotFoundException{
         final Optional<UserEntity> userEntity = userRepository.findByEmail(email);
         return userMapper.destinationToSource(userEntity
                 .orElseThrow(()-> new UsernameNotFoundException("No user found with username " + email)));
-    }
-
-    public UserEntity getUserByEmail(final String email, final OrderEntity orderEntity) throws UsernameNotFoundException {
-        final UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(()->
-                new UsernameNotFoundException("No user found with username " + email));
-
-        userEntity.setOrderEntityList(Collections.singletonList(orderEntity));
-
-        return  userRepository.save(userEntity);
     }
 
     private void saveAuthInfo(final UserSignUpRequest request, final UserEntity savedUser) {

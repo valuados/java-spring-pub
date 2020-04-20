@@ -1,20 +1,19 @@
 package com.springpub.demo.auth.controller;
 
-import com.springpub.demo.dto.Gender;
+import com.springpub.demo.auth.controller.helper.AbstractControllerTest;
+import com.springpub.demo.auth.controller.helper.OrdersHelperTest;
+import com.springpub.demo.dto.OrderStatus;
 import com.springpub.demo.entity.MenuItemEntity;
+import com.springpub.demo.entity.OrderEntity;
 import com.springpub.demo.entity.UserEntity;
-import com.springpub.demo.repository.UserRepository;
-import com.springpub.demo.security.UserRole;
+import com.springpub.demo.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
-import javax.management.relation.Role;
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -31,12 +30,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 
-public class OrdersControllerTest extends AbstractControllerTest{
+public class OrdersControllerTest extends AbstractControllerTest {
 
     private final static LocalDateTime LOCAL_DATE = LocalDateTime.of(2020, 4, 5, 14, 31, 30);
 
     @MockBean
     protected Clock clock;
+
+    @MockBean
+    protected OrderRepository orderRepository;
 
     @Test
     public void testClientAddEmptyOrder() throws Exception{
@@ -47,6 +49,13 @@ public class OrdersControllerTest extends AbstractControllerTest{
         willReturn(Optional.of(getUserEntity(id, email))).given(userRepository).findByEmail(email);
         willReturn(fixedClock.instant()).given(clock).instant();
         willReturn(fixedClock.getZone()).given(clock).getZone();
+        willReturn(OrdersHelperTest.getOrderEntity(
+                new UserEntity(),
+                OrderStatus.NEW.name(),
+                BigDecimal.ZERO,
+                null))
+                .given(orderRepository)
+                .save(any(OrderEntity.class));
         mockMvc.perform(post("/orders/create")
                 .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)

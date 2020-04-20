@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Clock;
-import java.time.LocalDateTime;
 
 /**
  * @author valuados
@@ -30,31 +29,30 @@ public class OrdersService {
     private final OrderMapper orderMapper;
 
     //TODO User doesn't exists exception?
-    public Order create(final String email){
+    public OrderDTO create(final String email){
 
         //Get user id
         /*Client client = (Client) authentication.getPrincipal();
         int userId = client.//getUserId();*/
         //order.setOrderedItemRequests(orderedItemService.addList(order.getOrderedItemRequests()));
 
-        //order.setUserId(clientService.getClientByEmail(authentication.getName()).getId());
-       final Order order = new Order();
+       final OrderDTO orderDTO = new OrderDTO();
 
-        order.setTotalPrice(BigDecimal.ZERO);
-        order.setStatus(OrderStatus.NEW);
-        order.setCreationDate(LocalDateTime.now(clock));
+        orderDTO.setTotalPrice(BigDecimal.ZERO);
+        orderDTO.setStatus(OrderStatus.NEW);
+        /*orderDTO.setCreationDate(LocalDateTime.now(clock));*/
+        orderDTO.setUserDTO(userService.getUserByEmail(email));
 
-        final OrderEntity orderEntity = orderMapper.sourceToDestination(order);
 
-        orderEntity.setUserEntity(userService.getUserByEmail(email, orderEntity));
+        final OrderEntity orderEntity = orderMapper.sourceToDestination(orderDTO);
 
         final OrderEntity savedOrderEntity = orderRepository.save(orderEntity);
 
         return orderMapper.destinationToSource(savedOrderEntity);
     }
 
-    private BigDecimal calculateTotalForOrderedItems(final Order order){
-        return order.getOrderedItemRequests()
+    private BigDecimal calculateTotalForOrderedItems(final OrderDTO orderDTO){
+        return orderDTO.getOrderedItemRequests()
                 .stream()
                 .map(OrderedItemRequest::getTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

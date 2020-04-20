@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 public class OrderedItem {
     private Long id;
-    private Order order;
+    private OrderDTO orderDTO;
     private MenuItem menuItem;
     private Integer volume;
     private BigDecimal totalPrice;

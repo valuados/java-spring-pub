@@ -1,5 +1,6 @@
 package com.springpub.demo.auth.controller;
 
+import com.springpub.demo.auth.controller.helper.AbstractControllerTest;
 import com.springpub.demo.entity.MenuItemEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -16,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author valuados
  */
 
-public class MenuItemsControllerTest extends AbstractControllerTest{
+public class MenuItemsControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetClientMenuItem() throws Exception {

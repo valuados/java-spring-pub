@@ -13,18 +13,17 @@ import java.util.List;
  * @author valuados
  */
 @Data
-public class Order {
+public class OrderDTO {
     private Long id;
-    private Long userId;
+    private UserDTO userDTO;
     private BigDecimal totalPrice;
     private OrderStatus status;
+    private List<OrderedItemRequest> orderedItemRequests;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
+    /*@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime creationDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private LocalDateTime updateDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
-    private LocalDateTime paidDate;
-
-    private List<OrderedItemRequest> orderedItemRequests;
+    private LocalDateTime paidDate;*/
 }

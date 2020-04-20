@@ -1,5 +1,6 @@
 package com.springpub.demo.auth.controller;
 
+import com.springpub.demo.auth.controller.helper.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
@@ -15,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author valuados
  */
 
-public class AuthControllerTest extends AbstractControllerTest{
+public class AuthControllerTest extends AbstractControllerTest {
     @Test
     public void testClientSigUpIsCreated() throws Exception{
 

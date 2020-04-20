@@ -1,4 +1,4 @@
-package com.springpub.demo.auth.controller;
+package com.springpub.demo.auth.controller.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springpub.demo.dto.Gender;
@@ -125,7 +125,7 @@ public abstract class AbstractControllerTest {
         return authInfo;
     }
 
-    protected UserEntity getUserEntity(Long id, String email) {
+    protected UserEntity getUserEntity(final Long id, final String email) {
         final UserEntity userEntity = new UserEntity();
         userEntity.setId(id);
         userEntity.setEmail(email);
