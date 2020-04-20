@@ -1,6 +1,6 @@
 package com.springpub.demo.service;
 
-import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.dto.MenuItemDTO;
 import com.springpub.demo.entity.MenuItemEntity;
 import com.springpub.demo.exception.ItemAlreadyExistsException;
 import com.springpub.demo.exception.MenuItemNotFoundException;
@@ -28,29 +28,29 @@ public class MenuItemsService {
     private final MenuItemRepository menuItemRepository;
     private final MenuItemMapper menuItemMapper;
 
-    public List<MenuItem> getList(){
+    public List<MenuItemDTO> getList(){
 
-        final List<MenuItem> menuItems = menuItemRepository
+        final List<MenuItemDTO> menuItemDTOS = menuItemRepository
                 .findAll()
                 .stream()
                 .map(menuItemMapper::destinationToSource)
-                .sorted(Comparator.comparing(MenuItem::getTitle))
+                .sorted(Comparator.comparing(MenuItemDTO::getTitle))
                 .collect(Collectors.toList());
-        return menuItems;
+        return menuItemDTOS;
     }
 
     @Transactional
     public void deleteMenuItem(final Long menuItemId) throws MenuItemNotFoundException {
         //TODO prepare delete functionality
-        log.info(String.format("Deleting menuItem with id (%d)", menuItemId));
+        log.info(String.format("Deleting menuItemDTO with id (%d)", menuItemId));
         if(menuItemRepository.findById(menuItemId).isEmpty()){
-            throw new MenuItemNotFoundException("No menuItem with id=" + menuItemId + " was found");
+            throw new MenuItemNotFoundException("No menuItemDTO with id=" + menuItemId + " was found");
         }
         menuItemRepository.deleteById(menuItemId);
     }
 
     @Transactional
-    public Map<String, Long> addMenuItem(final MenuItem request) throws ItemAlreadyExistsException {
+    public Map<String, Long> addMenuItem(final MenuItemDTO request) throws ItemAlreadyExistsException {
         if(menuItemRepository.countAllByTitle(request.getTitle()) > 0){
             throw new ItemAlreadyExistsException("Item with the title=" + request.getTitle() + " already exsists");
         }

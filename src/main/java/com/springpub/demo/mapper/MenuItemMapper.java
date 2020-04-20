@@ -1,6 +1,6 @@
 package com.springpub.demo.mapper;
 
-import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.dto.MenuItemDTO;
 import com.springpub.demo.entity.MenuItemEntity;
 import org.mapstruct.Mapper;
 
@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MenuItemMapper {
-    MenuItemEntity sourceToDestination(MenuItem source);
+    MenuItemEntity sourceToDestination(MenuItemDTO source);
 
-    MenuItem destinationToSource(MenuItemEntity destination);
+    MenuItemDTO destinationToSource(MenuItemEntity destination);
 }

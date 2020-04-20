@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 @Data
 @Builder
-public class MenuItem {
+public class MenuItemDTO {
     private Long id;
     private String title;
     private String description;

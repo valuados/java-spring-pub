@@ -1,6 +1,6 @@
 package com.springpub.demo.controller;
 
-import com.springpub.demo.dto.MenuItem;
+import com.springpub.demo.dto.MenuItemDTO;
 import com.springpub.demo.exception.ItemAlreadyExistsException;
 import com.springpub.demo.exception.MenuItemNotFoundException;
 import com.springpub.demo.service.MenuItemsService;
@@ -32,7 +32,7 @@ public class MenuItemsController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.OK)
-    public List<MenuItem> getList(){
+    public List<MenuItemDTO> getList(){
         return menuItemsService.getList();
     }
 
@@ -46,7 +46,7 @@ public class MenuItemsController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public Map<String, Long> addMenuItem(@RequestBody final MenuItem request)
+    public Map<String, Long> addMenuItem(@RequestBody final MenuItemDTO request)
             throws ItemAlreadyExistsException {
         return menuItemsService.addMenuItem(request);
     }
